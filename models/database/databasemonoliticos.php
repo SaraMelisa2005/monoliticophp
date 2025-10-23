@@ -26,9 +26,10 @@ class Databasemonoliticos
             die("" . $this->conexDb->connect_error);
             
         } 
+        echo 'la conexion a la base de datos ha sido establecida';      
     }
     
-       
+     
 
     public function setIsSqlSelect($bool)
     {
@@ -54,3 +55,4 @@ class Databasemonoliticos
         $this->conexDb->close();
     }
 }
+         
