@@ -26,7 +26,7 @@ class Databasemonoliticos
             die("" . $this->conexDb->connect_error);
             
         } 
-        echo 'la conexion a la base de datos ha sido establecida';      
+        // echo 'la conexion a la base de datos ha sido establecida';      
     }
     
      

@@ -8,11 +8,10 @@ require __DIR__ . '/../database/databasemonoliticos.php';
 
 use App\Models\Utils\MateriasSQL;
 use App\Models\Utils\Model;
-use App\Models\Utils\EstudiantesSQL;
 use App\Models\Databases\Databasemonoliticos;
 
 
-class materias extends Model
+class Materias extends Model
 {
     private $codigo;
     private $nombre;
@@ -36,11 +35,11 @@ class materias extends Model
         $rows = [];
         if ($result->num_rows > 0) {
             while ($item = $result->fetch_assoc()) {
-                $estudiante = new Estudiantes();
-                $estudiante->set('codigo', $item['codigo']);
-                $estudiante->set('nombre', $item['nombre']);
-                $estudiante->set('programa', $item['programa']);
-                array_push($rows, $estudiante);
+                $materia = new Materias();
+                $materia->set('codigo', $item['codigo']);
+                $materia->set('nombre', $item['nombre']);
+                $materia->set('programa', $item['programa']);
+                array_push($rows, $materia);
             }
         }
         return $rows;
@@ -48,7 +47,7 @@ class materias extends Model
 
     public function save()
     {
-        $sql = EstudiantesSQL::insertInto();
+        $sql = MateriasSQL::insertInto();
         $db = new Databasemonoliticos();
         $result = $db->execSQL($sql, "ss", $this->codigo, $this->nombre, $this->programa);
         return $result;
@@ -56,7 +55,7 @@ class materias extends Model
 
     public function update()
     {
-        $sql = EstudiantesSQL::update();
+        $sql = MateriasSQL::update();
         $db = new Databasemonoliticos();
         $result = $db->execSQL(
             $sql,
@@ -70,7 +69,7 @@ class materias extends Model
 
     public function delete()
     {
-        $sql = EstudiantesSQL::delete();
+        $sql = MateriasSQL::delete();
         $db = new Databasemonoliticos();
         $result = $db->execSQL(
             $sql,
@@ -79,9 +78,6 @@ class materias extends Model
         );
         return $result;
     }
-    public function find()
-    {
-        
-    }
+   
 
 }

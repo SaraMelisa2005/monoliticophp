@@ -14,8 +14,8 @@ class NotasController
 
     public function getNotas()
     {
-        $notas = new Notas();
-        return $notas->all();
+        $nota = new Notas();
+        return $nota->all();
     }
 
     public function saveNewNotas($request)
