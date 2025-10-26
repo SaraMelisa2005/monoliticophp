@@ -7,6 +7,10 @@ class EstudiantesSQL
     {
         return "select * from estudiantes";
     }
+     public static function selectByCodigo()
+    {
+        return "select * from estudiantes where codigo = ?";
+    }
 
 
     public static function insertInto()
@@ -14,16 +18,12 @@ class EstudiantesSQL
         return "insert into estudiantes (codigo, nombre, email, programa)values(?,?,?,?)";
     }
 
-    public static function update()
+        public static function update()
     {
-        $sql = "update estudiantes set ";
-         $sql .= "nombre=?,";
-         $sql .= "email=?,";
-         $sql .= "programa=?,";
-        $sql .= "descripcion=? where codigo=?";
-        return $sql;
+        
+        return "update estudiantes set nombre = ?, email = ?, programa = ? where codigo = ?";
     }
-
+    
     public static function delete(){
         return "delete from estudiantes where codigo=?";
     }

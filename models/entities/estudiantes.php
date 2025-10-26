@@ -51,24 +51,25 @@ class Estudiantes extends Model
     {
         $sql = EstudiantesSQL::insertInto();
         $db = new Databasemonoliticos();
-        $result = $db->execSQL($sql, "ss", $this->codigo, $this->nombre, $this->email, $this->programa);
+        $result = $db->execSQL($sql, "ssss", $this->codigo, $this->nombre, $this->email, $this->programa);
         return $result;
     }
 
-    public function update()
-    {
-        $sql = EstudiantesSQL::update();
-        $db = new Databasemonoliticos();
-        $result = $db->execSQL(
-            $sql,
-            "ssi",
-            $this->codigo,
-            $this->nombre,
-            $this->email,
-            $this->programa
-        );
-        return $result;
-    }
+public function update()
+{
+    $sql = EstudiantesSQL::update();
+    $db = new Databasemonoliticos();
+   
+    $result = $db->execSQL(
+        $sql,
+        "ssss",
+        $this->nombre,
+        $this->email,
+        $this->programa,
+        $this->codigo
+    );
+    return $result;
+}
 
     public function delete()
     {
@@ -76,14 +77,27 @@ class Estudiantes extends Model
         $db = new Databasemonoliticos();
         $result = $db->execSQL(
             $sql,
-            "i",
+            "s",
             $this->codigo
         );
         return $result;
     }
-    public function find()
+   public function find($codigo)
     {
-        
+        $sql = EstudiantesSQL::selectByCodigo();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sql, "s", $codigo);
+        if ($result->num_rows > 0) {
+            $item = $result->fetch_assoc();
+            $estudiante = new Estudiantes();
+            $estudiante->set('codigo', $item['codigo']);
+            $estudiante->set('nombre', $item['nombre']);
+            $estudiante->set('email', $item['email']);
+            $estudiante->set('programa', $item['programa']);
+            return $estudiante;
+        }
+        return null;
     }
 
 }

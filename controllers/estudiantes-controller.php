@@ -1,25 +1,22 @@
 <?php
-
 namespace App\Controllers;
 
 require __DIR__ . "/../models/entities/estudiantes.php";
-
 
 use App\Models\Entities\Estudiantes;
 
 class EstudiantesController
 {
-
-   
-
     public function getEstudiantes()
     {
+        // Sin cambios
         $estudiantes = new Estudiantes();
         return $estudiantes->all();
     }
 
     public function saveNewEstudiantes($request)
     {
+        // Sin cambios
         if (empty($request['codigo']) || empty($request['nombre']) || empty($request['email']) || empty($request['programa'])) {
             return false;
         }
@@ -33,25 +30,28 @@ class EstudiantesController
 
     public function updateEstudiantes($request)
     {
-        if (
-            empty($request['codigo'])
-            || empty($request['nombre'])
-            || empty($request['email'])
-            || empty($request['programa'])
-            
-        ) {
+        
+        if (empty($request['codigo']) || empty($request['nombre']) || empty($request['email']) || empty($request['programa'])) {
             return false;
         }
+
         $estudiantes = new Estudiantes();
-        $estudiantes->set('codigo', $request['codigo']);
-        $estudiantes->set('nombre', $request['nombre']);
-        $estudiantes->set('email', $request['email']);
-        $estudiantes->set('programa', $request['programa']);
-        return $estudiantes->update();
+        $existingEstudiante = $estudiantes->find($request['codigo']);
+
+        if (!$existingEstudiante) {
+            return false;
+        }
+
+      
+        $existingEstudiante->set('nombre', $request['nombre']);
+        $existingEstudiante->set('email', $request['email']);
+        $existingEstudiante->set('programa', $request['programa']);
+        return $existingEstudiante->update();
     }
 
     public function deleteEstudiantes($request)
     {
+       
         if (empty($request['codigo'])) {
             return false;
         }
