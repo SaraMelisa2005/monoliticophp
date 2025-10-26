@@ -5,7 +5,7 @@ require __DIR__ . "/../controllers/programas-controller.php";
 
 
 use App\Controllers\ProgramasController;
-use App\Models\Entities\programas;
+use App\Models\Entities\Programas;
 
 
 
@@ -35,7 +35,7 @@ $programas = $programasController->getProgramas();
 
             <div class="id">nuevo Programa</div>
             <div class="name">
-                <a href="materias-form.php">Crear programa</a>
+                <a href="programas-form.php">Crear programa</a>
             </div>
         </div>
         <?php

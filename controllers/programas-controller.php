@@ -10,8 +10,7 @@ use App\Models\Entities\programas;
 class ProgramasController
 {
 
-   
-
+    
     public function getProgramas()
     {
         $programas = new Programas();
@@ -31,17 +30,18 @@ class ProgramasController
 
     public function updateProgramas($request)
     {
-        if (
-              empty($request['codigo'])
-            || empty($request['nombre'])
-            
-        ) {
+
+        if (empty($request['codigo']) || empty($request['nombre'])) {
             return false;
         }
         $programas = new Programas();
-        $programas->set('codigo', $request['codigo']);
-        $programas->set('nombre', $request['nombre']);
-        return $programas->update();
+        $existingPrograma = $programas->find($request['codigo']); 
+        if (!$existingPrograma) {
+            return false;  
+        }
+        
+        $existingPrograma->set('nombre', $request['nombre']);
+        return $existingPrograma->update();
     }
 
     public function deleteProgramas($request)

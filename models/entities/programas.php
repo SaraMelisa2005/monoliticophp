@@ -11,7 +11,7 @@ use App\Models\Utils\ProgramasSQL;
 use App\Models\Databases\Databasemonoliticos;
 
 
-class programas extends Model
+class Programas extends Model
 {
     private $codigo;
     private $nombre;
@@ -59,12 +59,14 @@ class programas extends Model
         $db = new Databasemonoliticos();
         $result = $db->execSQL(
             $sql,
-            "ssi",
-            $this->codigo,
-            $this->nombre
+            "ss",
+             $this->nombre,
+            $this->codigo
+           
         );
         return $result;
     }
+    
 
     public function delete()
     {
@@ -74,12 +76,26 @@ class programas extends Model
             $sql,
             "i",
             $this->codigo,
-             $this->nombre
+            
         );
         return $result;
     }
-    public function find()
+
+        // NUEVO: Implementa find() para buscar por codigo
+    public function find($codigo)
     {
-        
+        $sql = ProgramasSQL::selectByCodigo();  // Necesitas agregar este método en ProgramasSQL
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sql, "s", $codigo);
+        if ($result->num_rows > 0) {
+            $item = $result->fetch_assoc();
+            $programa = new Programas();
+            $programa->set('codigo', $item['codigo']);
+            $programa->set('nombre', $item['nombre']);
+            return $programa;
+        }
+        return null;  
     }
+    
 }

@@ -11,7 +11,7 @@ use App\Models\Utils\EstudiantesSQL;
 use App\Models\Databases\Databasemonoliticos;
 
 
-class estudiantes extends Model
+class Estudiantes extends Model
 {
     private $codigo;
     private $nombre;

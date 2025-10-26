@@ -7,6 +7,11 @@ class ProgramasSQL
     {
         return "select * from programas";
     }
+    
+    public static function selectByCodigo()
+    {
+        return "select * from programas where codigo = ?";
+    }
 
 
     public static function insertInto()
@@ -14,12 +19,10 @@ class ProgramasSQL
         return "insert into programas (codigo, nombre)values(?,?)";
     }
 
-    public static function update()
+
+        public static function update()
     {
-        $sql = "update programas set ";
-        $sql .= "nombre=? where codigo=?";
-        
-        return $sql;
+        return "update programas set nombre = ? where codigo = ?";
     }
 
     public static function delete(){

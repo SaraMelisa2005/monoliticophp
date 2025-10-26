@@ -1,5 +1,5 @@
 <?php
-namespace App\Models\Utils;
+namespace App\Models\utils;
 class EstudiantesSQL
 {
 
