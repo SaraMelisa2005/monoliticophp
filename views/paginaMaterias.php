@@ -10,7 +10,7 @@ use App\Models\Entities\Materias;
 
 
 $materiasController = new MateriasController();
-$materias = $materiasController->getmaterias();
+$materias = $materiasController->getMaterias();
 
 
 

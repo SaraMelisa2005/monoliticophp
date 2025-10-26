@@ -32,19 +32,19 @@ class MateriasController
 
     public function updateMaterias($request)
     {
-        if (
-            empty($request['codigo'])
-            || empty($request['nombre'])
-            || empty($request['programa'])
-            
-        ) {
+        
+        if (empty($request['codigo']) || empty($request['nombre']) || empty($request['programa'])) {
             return false;
         }
         $materias = new Materias();
-         $materias->set('codigo', $request['codigo']);
-        $materias->set('nombre', $request['nombre']);
-        $materias->set('programa', $request['programa']);
-        return $materias->update();
+        $existingMateria = $materias->find($request['codigo']);
+        if (!$existingMateria) {
+            return false;
+        }
+       
+        $existingMateria->set('nombre', $request['nombre']);
+        $existingMateria->set('programa', $request['programa']);
+        return $existingMateria->update();
     }
 
     public function deleteMaterias($request)

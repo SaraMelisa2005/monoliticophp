@@ -1,6 +1,6 @@
 <?php
 $codigo = empty($_GET['cod']) ? null : $_GET['cod'];
-$titulo = 'Registar Materias';
+$titulo = 'Registrar Materias';
 $action = 'operaciones/crear-materias.php';
 if (!empty($codigo)) {
     $titulo = 'Modificar Materias';
@@ -23,27 +23,29 @@ if (!empty($codigo)) {
     <form action="<?php echo $action; ?>" method="post">
         <?php
         if (!empty($codigo)) {
-            echo '<input type="hidden" name="codigo" value="' . $codigo . '">';
+            echo '<input type="hidden" name="codigo" value="' . htmlspecialchars($codigo) . '">';
         }
         ?>
         <fieldset>
             <legend><?php echo $titulo; ?></legend>
             <div>
-                <label for="materias">Codigo de la materia</label>
-                <input type="text" name="codigo" id="codigo">
+                <label for="codigo">Código de la materia</label>
+                <?php if (!empty($codigo)): ?>
+                    <input type="text" name="codigo_display" id="codigo" value="<?php echo htmlspecialchars($codigo); ?>" readonly>
+                <?php else: ?>
+                    <input type="text" name="codigo" id="codigo">
+                <?php endif; ?>
             </div>
             <div>
-                <label for="">nombre</label>
+                <label for="nombre">Nombre</label>
                 <input type="text" name="nombre" id="nombre">
             </div>
-            
             <div>
-                <label for="">programa</label>
+                <label for="programa">Programa</label>
                 <input type="text" name="programa" id="programa">
             </div>
         </fieldset>
         <button type="submit">Guardar</button>
     </form>
 </body>
-
 </html>

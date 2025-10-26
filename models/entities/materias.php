@@ -49,7 +49,7 @@ class Materias extends Model
     {
         $sql = MateriasSQL::insertInto();
         $db = new Databasemonoliticos();
-        $result = $db->execSQL($sql, "ss", $this->codigo, $this->nombre, $this->programa);
+        $result = $db->execSQL($sql, "sss", $this->codigo, $this->nombre, $this->programa);
         return $result;
     }
 
@@ -59,10 +59,10 @@ class Materias extends Model
         $db = new Databasemonoliticos();
         $result = $db->execSQL(
             $sql,
-            "ssi",
-            $this->codigo,
+            "sss",
             $this->nombre,
-            $this->programa
+            $this->programa,
+            $this->codigo
         );
         return $result;
     }
@@ -73,10 +73,26 @@ class Materias extends Model
         $db = new Databasemonoliticos();
         $result = $db->execSQL(
             $sql,
-            "i",
+            "s",
             $this->codigo
         );
         return $result;
+    }
+     public function find($codigo)
+    {
+        $sql = MateriasSQL::selectByCodigo();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sql, "s", $codigo);
+        if ($result->num_rows > 0) {
+            $item = $result->fetch_assoc();
+            $materia = new Materias();
+            $materia->set('codigo', $item['codigo']);
+            $materia->set('nombre', $item['nombre']);
+            $materia->set('programa', $item['programa']);
+            return $materia;
+        }
+        return null;
     }
    
 

@@ -7,6 +7,10 @@ class MateriasSQL
     {
         return "select * from materias";
     }
+        public static function selectByCodigo()
+    {
+        return "select * from materias where codigo = ?";
+    }
 
 
     public static function insertInto()
@@ -14,13 +18,11 @@ class MateriasSQL
         return "insert into materias (codigo,nombre,programa)values(?,?,?)";
     }
 
-    public static function update()
+    
+     public static function update()
     {
-        $sql = "update materias set ";
-        $sql .= "nombre=?,";
-        $sql .= "programa=? where codigo=?";
-
-        return $sql;
+        
+        return "update materias set nombre = ?, programa = ? where codigo = ?";
     }
 
     public static function delete(){
