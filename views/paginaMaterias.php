@@ -63,19 +63,19 @@ $materias = $materiasController->getMaterias();
 
         
     </section>
+       <div id="borrarModalMaterias" class="modal">
+    <h3 class="titulo">Eliminar la Materia</h3>
+    <p class="descripcion">¿Desea eliminar la Materia?</p>
+    <form name="borrarMateriaForm" action="operaciones/borrar-materias.php" method="post">
+       
+        <input type="hidden" name="codigo" value="">
+        <
+        <button type="submit">Continuar</button>
+        <button type="reset">Cancelar</button>
+    </form>
+</div>
 
-    <div id="borrarModal" class="modal">
-        <h3 class="titulo">Eliminar la materia</h3>
-        <p class="descripcion">¿Desea eliminar la materia?</p>
-        <form name="borrarMateriasForm" 
-        action="operaciones/borrar-materias.php" 
-        method="post" 
-        >
-            <input type="hidden" name="codigo" value="">
-            <button type="submit">Continuar</button>
-            <button type="reset">Cancelar</button>
-        </form>
-    </div>
+   
 
     <script src="../public/js/modal-users.js"></script>
 </body>

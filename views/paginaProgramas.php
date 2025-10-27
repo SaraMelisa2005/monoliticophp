@@ -63,20 +63,19 @@ $programas = $programasController->getProgramas();
 
         
     </section>
+       <div id="borrarModalProgramas" class="modal">
+    <h3 class="titulo">Eliminar la nota</h3>
+    <p class="descripcion">¿Desea eliminar el programa?</p>
+    <form name="borrarProgramasForm" action="operaciones/borrar-programas.php" method="post">
+       
+       
+        <input type="hidden" name="codigo" value="">
+        <button type="submit">Continuar</button>
+        <button type="reset">Cancelar</button>
+    </form>
+</div>
 
-    <div id="borrarModal" class="modal">
-        <h3 class="titulo">Eliminar el programa</h3>
-        <p class="descripcion">¿Desea eliminar el programa?</p>
-        <form name="borrarProgramaForm" 
-        action="operaciones/borrar-Programas.php" 
-        method="post" 
-        >
-            <input type="hidden" name="codigo" value="">
-            <button type="submit">Continuar</button>
-            <button type="reset">Cancelar</button>
-        </form>
-    </div>
-
+    
     <script src="../public/js/modal-users.js"></script>
 </body>
 

@@ -6,6 +6,8 @@ require __DIR__ . "/../models/entities/materias.php";
 
 
 use App\Models\Entities\Materias;
+use App\Models\Entities\Notas;
+
 
 class MateriasController
 {
@@ -46,14 +48,24 @@ class MateriasController
         $existingMateria->set('programa', $request['programa']);
         return $existingMateria->update();
     }
-
     public function deleteMaterias($request)
-    {
-        if (empty($request['codigo'])) {
+{
+    if (empty($request['codigo'])) {
+        return false;
+    }
+    
+    $notas = new Notas();
+    $notasMateria = $notas->all();
+    foreach ($notasMateria as $nota) {
+        if ($nota->get('materia') === $request['codigo']) {
             return false;
         }
-        $materias = new Materias();
-        $materias->set('codigo', $request['codigo']);
-        return $materias->delete();
     }
+    
+    $materias = new Materias();
+    $materias->set('codigo', $request['codigo']);
+    return $materias->delete();
+}
+
+    
 }

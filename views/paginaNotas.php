@@ -17,6 +17,7 @@ $notas = $notasController->getNotas();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notas</title>
    
+    <link rel="stylesheet" href="../public/css/modals.css">
 </head>
 
 <body>    
@@ -26,7 +27,7 @@ $notas = $notasController->getNotas();
     <section class="">
         <div class="">
             <img class="icono" src="" alt="imagen" />
-
+            
             <div class="id">nueva nota</div>
             <div class="name">
                 <a href="notas-form.php">Crear nota</a>
@@ -46,7 +47,7 @@ $notas = $notasController->getNotas();
             echo '          <img class="icono" src="" alt="imagen"/>';
             echo '      </a>';
             
-            echo '      <button onclick="borrar(\'' . $nota->get('materia') . '\', \'' . $nota->get('estudiante') . '\')">';
+            echo '      <button onclick="borrarNota(\'' . addslashes($nota->get('materia')) . '\', \'' . addslashes($nota->get('estudiante')) . '\')">';
             echo '          <img class="icono" src="" alt="imagen"/>';
             echo '      </button>';
             echo '  </div>';
@@ -55,26 +56,25 @@ $notas = $notasController->getNotas();
         if (count($notas) == 0) {
             echo '<div>No hay notas registradas</div>';
         }
+
         ?>
 
-        
     </section>
 
-    <div id="borrarModal" class="modal">
-        <h3 class="titulo">Eliminar la nota</h3>
-        <p class="descripcion">¿Desea eliminar la nota?</p>
-        <form name="borrarNotasForm" 
-        action="operaciones/borrar-notas.php" 
-        method="post" 
-        >
-            
-            <input type="hidden" name="materia" value="">
-            <input type="hidden" name="estudiante" value="">
-            <button type="submit">Continuar</button>
-            <button type="reset">Cancelar</button>
-        </form>
+    <div id="borrarModalNotas" class="modal">
+        <div> 
+            <h3 class="titulo">Eliminar la nota</h3>
+            <p class="descripcion">¿Desea eliminar la nota?</p>
+            <form name="borrarNotasForm" action="operaciones/borrar-notas.php" method="post">
+                <input type="hidden" name="materia" value="">
+                <input type="hidden" name="estudiante" value="">
+                <button type="submit">Continuar</button>
+                <button type="reset">Cancelar</button>
+            </form>
+        </div>
     </div>
 
+    
     <script src="../public/js/modal-users.js"></script>
 </body>
 

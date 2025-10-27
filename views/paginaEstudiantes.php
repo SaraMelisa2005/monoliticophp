@@ -64,19 +64,18 @@ $estudiantes = $estudiantesController->getEstudiantes();
 
         
     </section>
+       <div id="borrarModalEstudiantes" class="modal">
+    <h3 class="titulo">Eliminar el estidiante</h3>
+    <p class="descripcion">¿Desea eliminar al estudiante?</p>
+    <form name="borrarEstudiantesForm" action="operaciones/borrar-estudiantes.php" method="post">
+       
+        <input type="hidden" name="codigo" value="">
+        
+        <button type="submit">Continuar</button>
+        <button type="reset">Cancelar</button>
+    </form>
+</div>
 
-    <div id="borrarModal" class="modal">
-        <h3 class="titulo">Eliminar el estudiante</h3>
-        <p class="descripcion">¿Desea eliminar el estudiante?</p>
-        <form name="borrarEstudianteForm" 
-        action="operaciones/borrar-Estudiantes.php" 
-        method="post" 
-        >
-            <input type="hidden" name="codigo" value="">
-            <button type="submit">Continuar</button>
-            <button type="reset">Cancelar</button>
-        </form>
-    </div>
 
     <script src="../public/js/modal-users.js"></script>
 </body>
