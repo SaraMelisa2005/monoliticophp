@@ -9,7 +9,7 @@ use App\Models\Entities\Notas;
 $notasController = new NotasController();
 
 $isSaved = $notasController->saveNewNotas($_POST);
-echo $isSaved;
+
 if ($isSaved) {
     header("Location: ../paginaNotas.php");
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models\Entities;
 
 require __DIR__ . '/../utils/model.php';
@@ -10,7 +9,6 @@ use App\Models\Utils\Model;
 use App\Models\Utils\NotasSQL;
 use App\Models\Databases\Databasemonoliticos;
 
-
 class Notas extends Model
 {
     private $materia;
@@ -20,6 +18,13 @@ class Notas extends Model
 
     public function set($prop, $val)
     {
+        if ($prop === 'nota') {
+            $val = floatval($val);
+            if ($val < 0 || $val > 5) {
+                throw new \Exception("La nota debe estar entre 0 y 5.");
+            }
+            $val = round($val, 2);
+        }
         $this->{$prop} = $val;
     }
     public function get($prop)
@@ -33,6 +38,11 @@ class Notas extends Model
         $db = new Databasemonoliticos();
         $db->setIsSqlSelect(true);
         $result = $db->execSQL($sql);
+        
+        if (!$result) {
+            return [];
+        }
+        
         $rows = [];
         if ($result->num_rows > 0) {
             while ($item = $result->fetch_assoc()) {
@@ -51,7 +61,7 @@ class Notas extends Model
     {
         $sql = NotasSQL::insertInto();
         $db = new Databasemonoliticos();
-        $result = $db->execSQL($sql, "ss", $this->materia, $this->estudiante, $this->actividad, $this->nota);
+        $result = $db->execSQL($sql, "sssd", $this->materia, $this->estudiante, $this->actividad, $this->nota);
         return $result;
     }
 
@@ -61,11 +71,10 @@ class Notas extends Model
         $db = new Databasemonoliticos();
         $result = $db->execSQL(
             $sql,
-            "ssi",
+            "dss",
+            $this->nota,
             $this->materia,
-            $this->estudiante,
-            $this->actividad,
-            $this->nota
+            $this->estudiante
         );
         return $result;
     }
@@ -76,14 +85,28 @@ class Notas extends Model
         $db = new Databasemonoliticos();
         $result = $db->execSQL(
             $sql,
-            "i",
+            "ss",
             $this->materia,
-             $this->estudiante
+            $this->estudiante
         );
         return $result;
     }
-    public function find()
+
+    public function find($materia, $estudiante)
     {
-        
+        $sql = NotasSQL::selectByMateriaEstudiante();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sql, "ss", $materia, $estudiante);
+        if ($result->num_rows > 0) {
+            $item = $result->fetch_assoc();
+            $nota = new Notas();
+            $nota->set('materia', $item['materia']);
+            $nota->set('estudiante', $item['estudiante']);
+            $nota->set('actividad', $item['actividad']);
+            $nota->set('nota', $item['nota']);
+            return $nota;
+        }
+        return null;
     }
 }

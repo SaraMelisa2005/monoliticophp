@@ -1,7 +1,7 @@
 <?php
-$materia = empty($_GET['cod']) ? null : $_GET['cod'];
-$estudiante = empty($_GET['cod']) ? null : $_GET['cod'];
-$titulo = 'Registar Notas';
+$materia = empty($_GET['materia']) ? null : $_GET['materia'];
+$estudiante = empty($_GET['estudiante']) ? null : $_GET['estudiante'];
+$titulo = 'Registrar Notas';
 $action = 'operaciones/crear-notas.php';
 if (!empty($materia) && !empty($estudiante)) {
     $titulo = 'Modificar Notas';
@@ -10,7 +10,7 @@ if (!empty($materia) && !empty($estudiante)) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,28 +24,36 @@ if (!empty($materia) && !empty($estudiante)) {
     <form action="<?php echo $action; ?>" method="post">
         <?php
         if (!empty($materia) && !empty($estudiante)) {
-            echo '<input type="hidden" name="codigo" value="' . $materia . '">';
-            echo '<input type="hidden" name="codigo" value="' . $estudiante . '">';
+            echo '<input type="hidden" name="materia" value="' . htmlspecialchars($materia) . '">';
+            echo '<input type="hidden" name="estudiante" value="' . htmlspecialchars($estudiante) . '">';
         }
         ?>
         <fieldset>
             <legend><?php echo $titulo; ?></legend>
             <div>
-                <label for="notas">Materia</label>
-                <input type="text" name="materia" id="materia">
+                <label for="materia">Materia</label>
+                <?php if (!empty($materia)): ?>
+                    <input type="text" name="materia_display" id="materia" value="<?php echo htmlspecialchars($materia); ?>" readonly>
+                <?php else: ?>
+                    <input type="text" name="materia" id="materia">
+                <?php endif; ?>
             </div>
             <div>
-                <label for="">Estudiante</label>
-                <input type="text" name="estudiante" id="estudiante">
+                <label for="estudiante">Estudiante</label>
+                <?php if (!empty($estudiante)): ?>
+                    <input type="text" name="estudiante_display" id="estudiante" value="<?php echo htmlspecialchars($estudiante); ?>" readonly>
+                <?php else: ?>
+                    <input type="text" name="estudiante" id="estudiante">
+                <?php endif; ?>
             </div>
             <div>
-                <label for="">Actividad</label>
-                <input type="text" name="actividad" id="actividad">
+                <label for="actividad">Actividad</label>
+                <input type="text" name="actividad" id="actividad" <?php echo (!empty($materia) ? 'readonly' : ''); ?>>
             </div>
-            
+
             <div>
-                <label for="">Nota</label>
-                <input type="number" name="nota" id="nota">
+                <label for="nota">Nota</label>
+                <input type="number" name="nota" id="nota" min="0" max="5" step="0.01" required>
             </div>
         </fieldset>
         <button type="submit">Guardar</button>
