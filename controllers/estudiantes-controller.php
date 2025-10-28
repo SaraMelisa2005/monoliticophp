@@ -49,23 +49,28 @@ class EstudiantesController
         $existingEstudiante->set('programa', $request['programa']);
         return $existingEstudiante->update();
     }
-     public function deleteEstudiantes($request)
-{
-    if (empty($request['codigo'])) {
+    public function deleteEstudiantes($request)
+    {
+        if (empty($request['codigo'])) {
+            return false;
+        }
+        // Validación: No borrar si tiene notas
+        if ($this->tieneRelaciones($request['codigo'])) {
+            return false;
+        }
+        $estudiantes = new Estudiantes();
+        $estudiantes->set('codigo', $request['codigo']);
+        return $estudiantes->delete();
+    }
+    private function tieneRelaciones($codigo)
+    {
+        $sqlNotas = "SELECT COUNT(*) as count FROM notas WHERE estudiante = ?";
+        $db = new \App\Models\Databases\Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sqlNotas, "s", $codigo);
+        if ($result && $result->fetch_assoc()['count'] > 0) {
+            return true;
+        }
         return false;
     }
-    
-    $notas = new Notas();
-    $notasEstudiante = $notas->all(); 
-    foreach ($notasEstudiante as $nota) {
-        if ($nota->get('estudiante') === $request['codigo']) {
-            return false;  
-        }
-    }
-    $estudiantes = new Estudiantes();
-    $estudiantes->set('codigo', $request['codigo']);
-    return $estudiantes->delete();
-}
-
-  
 }
