@@ -1,13 +1,35 @@
 <?php
-require __DIR__ . "/../../controllers/estudiantes-controller.php";
+
+require __DIR__ . "/../../controllers/programas-controller.php";
+
 use App\Controllers\ProgramasController;
 
-$programasController = new ProgramasController();
+
+$programasController = new programasController();
+
+
 $isDeleted = $programasController->deleteProgramas($_POST);
+
+
 if ($isDeleted) {
-    header("Location: ../paginaProgrmas.php");
-    exit;
+    header("Location: ../paginaProgramas.php");
+    exit;  
 } else {
-    echo "<h1>Error</h1><p>No se puede eliminar (tiene materias registradas o estudiantes relacionados).</p><a href='../paginaProgrmas.php'>Volver</a>";
+    
+    ?>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Error al Eliminar programa</title>
+    </head>
+    <body>
+        <h1>Error al Eliminar</h1>
+        <p>No se pudo eliminar el programa. Verifica que exista o intenta de nuevo.</p>
+        <a href="../paginaNotas.php">Volver a la Lista de programas</a>
+    </body>
+    </html>
+    <?php
 }
 ?>

@@ -94,6 +94,4 @@ class Materias extends Model
         }
         return null;
     }
-   
-
 }

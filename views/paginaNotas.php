@@ -3,7 +3,7 @@
 require __DIR__ . "/../controllers/notas-controller.php";
 
 use App\Controllers\NotasController;
-use App\Models\Entities\Notas;
+
 
 $notasController = new NotasController();
 $notas = $notasController->getNotas();

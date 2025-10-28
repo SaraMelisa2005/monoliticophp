@@ -47,7 +47,7 @@ class NotasController
             return false;
         }
 
-        $existingNota->set('nota', $notaVal);
+        $existingNota->set('not a', $notaVal);
         return $existingNota->update();
     }
 
@@ -59,7 +59,25 @@ class NotasController
         $notas = new Notas();
         $notas->set('materia', $request['materia']);
         $notas->set('estudiante', $request['estudiante']);
-        return $notas->delete();
+        $existingNota = $notas->find($request['materia'], $request['estudiante']);
+        if (!$existingNota) {
+            return false;
+        }
+        $result = $notas->delete();
+        if ($result) {
+        $this->recalcularPromedio($request['estudiante'], $request['materia']);
+        }
+        return $result;
+    }
+    private function recalcularPromedio($estudiante, $materia)
+    {
+        $notas = new Notas();
+        $notasRestantes = $notas->findByEstudianteMateria($estudiante, $materia); // Necesitas este método en Notas
+        $promedio = count($notasRestantes) > 0 
+            ? round(array_sum(array_map(fn($n) => $n->get('nota'), $notasRestantes)) / count($notasRestantes), 2)
+            : 0.0;
+        
+        
     }
 }
 ?>

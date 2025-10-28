@@ -109,4 +109,23 @@ class Notas extends Model
         }
         return null;
     }
+    public function findByEstudianteMateria($estudiante, $materia)
+{
+    $sql = "SELECT * FROM notas WHERE estudiante = ? AND materia = ?";
+    $db = new Databasemonoliticos();
+    $db->setIsSqlSelect(true);
+    $result = $db->execSQL($sql, "ss", $estudiante, $materia);
+    $rows = [];
+    if ($result && $result->num_rows > 0) {
+        while ($item = $result->fetch_assoc()) {
+            $nota = new Notas();
+            $nota->set('materia', $item['materia']);
+            $nota->set('estudiante', $item['estudiante']);
+            $nota->set('actividad', $item['actividad']);
+            $nota->set('nota', $item['nota']);
+            $rows[] = $nota;
+        }
+    }
+    return $rows;
+}
 }
