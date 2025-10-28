@@ -46,30 +46,37 @@ class ProgramasController
         $existingPrograma->set('nombre', $request['nombre']);
         return $existingPrograma->update();
     }
-    public function deleteProgramas($request)
-{
-    if (empty($request['codigo'])) {
+     public function deleteProgramas($request)
+    {
+        if (empty($request['codigo'])) {
+            return false;
+        }
+        
+        if ($this->tieneRelaciones($request['codigo'])) {
+            return false;
+        }
+        $programas = new Programas();
+        $programas->set('codigo', $request['codigo']);
+        return $programas->delete();
+    }
+    private function tieneRelaciones($codigo)
+    {
+        // Verificar estudiantes
+        $sqlEstudiantes = "SELECT COUNT(*) as count FROM estudiantes WHERE programa = ?";
+        $db = new \App\Models\Databases\Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sqlEstudiantes, "s", $codigo);
+        if ($result && $result->fetch_assoc()['count'] > 0) {
+            return true;
+        }
+        // Verificar materias
+        $sqlMaterias = "SELECT COUNT(*) as count FROM materias WHERE programa = ?";
+        $result = $db->execSQL($sqlMaterias, "s", $codigo);
+        if ($result && $result->fetch_assoc()['count'] > 0) {
+            return true;
+        }
         return false;
     }
-    
-    $estudiantes = new Estudiantes();
-    $estudiantesPrograma = $estudiantes->all();
-    foreach ($estudiantesPrograma as $est) {
-        if ($est->get('programa') === $request['codigo']) {
-            return false;
-        }
-    }
-    $materias = new Materias();
-    $materiasPrograma = $materias->all();
-    foreach ($materiasPrograma as $mat) {
-        if ($mat->get('programa') === $request['codigo']) {
-            return false;
-        }
-    }
-    $programas = new Programas();
-    $programas->set('codigo', $request['codigo']);
-    return $programas->delete();
-}
 
    
 }

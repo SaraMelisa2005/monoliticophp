@@ -74,7 +74,7 @@ class Programas extends Model
         $db = new Databasemonoliticos();
         $result = $db->execSQL(
             $sql,
-            "i",
+            "s",
             $this->codigo,
             
         );

@@ -54,6 +54,8 @@ if (formMaterias) {
     });
 }
 
+
+
 // Para programas
 const formProgramas = document.forms['borrarProgramasForm'];
 const modalProgramas = document.getElementById('borrarModalProgramas');
