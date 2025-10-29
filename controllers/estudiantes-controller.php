@@ -32,9 +32,9 @@ class EstudiantesController
             return false;
         }
 
-        // NUEVO: Validación - No modificar si tiene notas
+        
         if ($this->tieneNotas($request['codigo'])) {
-            return false;  // No permitir modificación
+            return false;  
         }
 
         $estudiantes = new Estudiantes();
@@ -56,7 +56,7 @@ class EstudiantesController
             return false;
         }
 
-        // Validación: No borrar si tiene notas
+        
         if ($this->tieneNotas($request['codigo'])) {
             return false;
         }
@@ -66,7 +66,7 @@ class EstudiantesController
         return $estudiantes->delete();
     }
 
-    // NUEVO: Método auxiliar para verificar notas (query directa)
+   
     private function tieneNotas($codigo)
     {
         $sqlNotas = "SELECT COUNT(*) as count FROM notas WHERE estudiante = ?";

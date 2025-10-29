@@ -45,7 +45,7 @@ class MateriasController
         if (empty($request['codigo'])) {
             return false;
         }
-        // Validación: No borrar si tiene notas (query directa)
+        
         if ($this->tieneRelaciones($request['codigo'])) {
             return false;
         }
