@@ -1,23 +1,20 @@
 <?php
 namespace App\Controllers;
 
-require __DIR__ . "/../models/entities/estudiantes.php";
+require_once __DIR__ . "/../models/entities/estudiantes.php";
 
 use App\Models\Entities\Estudiantes;
-use App\Models\Entities\Notas;
 
 class EstudiantesController
 {
     public function getEstudiantes()
     {
-        
         $estudiantes = new Estudiantes();
         return $estudiantes->all();
     }
 
     public function saveNewEstudiantes($request)
     {
-        
         if (empty($request['codigo']) || empty($request['nombre']) || empty($request['email']) || empty($request['programa'])) {
             return false;
         }
@@ -31,9 +28,13 @@ class EstudiantesController
 
     public function updateEstudiantes($request)
     {
-        
         if (empty($request['codigo']) || empty($request['nombre']) || empty($request['email']) || empty($request['programa'])) {
             return false;
+        }
+
+        // NUEVO: Validación - No modificar si tiene notas
+        if ($this->tieneNotas($request['codigo'])) {
+            return false;  // No permitir modificación
         }
 
         $estudiantes = new Estudiantes();
@@ -43,26 +44,30 @@ class EstudiantesController
             return false;
         }
 
-      
         $existingEstudiante->set('nombre', $request['nombre']);
         $existingEstudiante->set('email', $request['email']);
         $existingEstudiante->set('programa', $request['programa']);
         return $existingEstudiante->update();
     }
+
     public function deleteEstudiantes($request)
     {
         if (empty($request['codigo'])) {
             return false;
         }
+
         // Validación: No borrar si tiene notas
-        if ($this->tieneRelaciones($request['codigo'])) {
+        if ($this->tieneNotas($request['codigo'])) {
             return false;
         }
+
         $estudiantes = new Estudiantes();
         $estudiantes->set('codigo', $request['codigo']);
         return $estudiantes->delete();
     }
-    private function tieneRelaciones($codigo)
+
+    // NUEVO: Método auxiliar para verificar notas (query directa)
+    private function tieneNotas($codigo)
     {
         $sqlNotas = "SELECT COUNT(*) as count FROM notas WHERE estudiante = ?";
         $db = new \App\Models\Databases\Databasemonoliticos();
