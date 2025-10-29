@@ -20,7 +20,6 @@ if (!empty($codigo)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $titulo; ?></title>
 </head>
-
 <body>
     <h1><?php echo $titulo; ?></h1>
     <a href="paginaEstudiantes.php">Volver</a>
@@ -42,7 +41,6 @@ if (!empty($codigo)) {
                     <input type="text" name="codigo" id="codigo">
                 <?php endif; ?>
             </div>
-
             <div>
                 <label for="nombre">Nombre del estudiante</label>
                 <input type="text" name="nombre" id="nombre">

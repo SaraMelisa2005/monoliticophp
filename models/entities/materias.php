@@ -1,21 +1,19 @@
 <?php
-
 namespace App\Models\Entities;
 
-require __DIR__ . '/../utils/model.php';
-require __DIR__ . '/../utils/materias-sql.php';
-require __DIR__ . '/../database/databasemonoliticos.php';
+require_once __DIR__ . '/../utils/model.php';
+require_once __DIR__ . '/../utils/materias-sql.php';
+require_once __DIR__ . '/../database/databasemonoliticos.php';
 
-use App\Models\Utils\MateriasSQL;
 use App\Models\Utils\Model;
+use App\Models\Utils\MateriasSQL;
 use App\Models\Databases\Databasemonoliticos;
-
 
 class Materias extends Model
 {
     private $codigo;
     private $nombre;
-     private $programa;
+    private $programa;
 
     public function set($prop, $val)
     {
@@ -78,7 +76,8 @@ class Materias extends Model
         );
         return $result;
     }
-     public function find($codigo)
+
+    public function find($codigo)
     {
         $sql = MateriasSQL::selectByCodigo();
         $db = new Databasemonoliticos();

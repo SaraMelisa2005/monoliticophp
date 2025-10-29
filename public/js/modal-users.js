@@ -39,23 +39,18 @@ if (formEstudiantes) {
 // Para materias
 const formMaterias = document.forms['borrarMateriasForm'];
 const modalMaterias = document.getElementById('borrarModalMaterias');
-
 const borrarMateria = (codigo) => {
     if (formMaterias) {
         formMaterias['codigo'].value = codigo;
         modalMaterias.classList.add('show');
     }
 };
-
 if (formMaterias) {
     formMaterias.addEventListener('reset', () => {
         formMaterias['codigo'].value = '';
         modalMaterias.classList.remove('show');
     });
 }
-
-
-
 // Para programas
 const formProgramas = document.forms['borrarProgramasForm'];
 const modalProgramas = document.getElementById('borrarModalProgramas');
