@@ -7,11 +7,10 @@ use mysqli;
 class Databasemonoliticos
 {
     private $hostDb = "localhost";
-    private $nameDb = "databasemonoliticos";
+    private $nameDb = "notas_app";
     private $userDb = "root";
     private $pwdDb = "";
     private $conexDb = null;
-
     private $isSqlSelect = false;
 
     public function __construct()

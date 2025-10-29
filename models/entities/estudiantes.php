@@ -16,7 +16,8 @@ class Estudiantes extends Model
     private $codigo;
     private $nombre;
     private $email;
-     private $programa;
+    private $programa;
+    private $nombrePrograma;
 
     public function set($prop, $val)
     {
@@ -41,6 +42,7 @@ class Estudiantes extends Model
                 $estudiante->set('nombre', $item['nombre']);
                 $estudiante->set('email', $item['email']);
                 $estudiante->set('programa', $item['programa']);
+                $estudiante->set('nombrePrograma', $item['nombrePrograma']);
                 array_push($rows, $estudiante);
             }
         }
@@ -55,21 +57,21 @@ class Estudiantes extends Model
         return $result;
     }
 
-public function update()
-{
-    $sql = EstudiantesSQL::update();
-    $db = new Databasemonoliticos();
-   
-    $result = $db->execSQL(
-        $sql,
-        "ssss",
-        $this->nombre,
-        $this->email,
-        $this->programa,
-        $this->codigo
-    );
-    return $result;
-}
+    public function update()
+    {
+        $sql = EstudiantesSQL::update();
+        $db = new Databasemonoliticos();
+
+        $result = $db->execSQL(
+            $sql,
+            "ssss",
+            $this->nombre,
+            $this->email,
+            $this->programa,
+            $this->codigo
+        );
+        return $result;
+    }
 
     public function delete()
     {
@@ -82,7 +84,7 @@ public function update()
         );
         return $result;
     }
-   public function find($codigo)
+    public function find($codigo)
     {
         $sql = EstudiantesSQL::selectByCodigo();
         $db = new Databasemonoliticos();
@@ -98,5 +100,20 @@ public function update()
             return $estudiante;
         }
         return null;
+    }
+
+        public function getProgramas()
+    {
+        $sql = EstudiantesSQL::selectProgramas();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sql);
+        $programas = [];
+        if ($result->num_rows > 0) {
+            while ($item = $result->fetch_assoc()) {
+                $programas[] = $item;  // Array con ['codigo' => '1111', 'nombre' => 'Ing. Sistemas']
+            }
+        }
+        return $programas;
     }
 }

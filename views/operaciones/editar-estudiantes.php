@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../../controllers/estudiantes-controller.php";
+require __DIR__ ."/../../controllers/estudiantes-controller.php";
 
 use App\Controllers\EstudiantesController;
 

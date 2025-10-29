@@ -2,9 +2,7 @@
 
 require __DIR__ ."/../../controllers/estudiantes-controller.php";
 
-
 use App\Controllers\EstudiantesController;
-use App\Models\Entities\Estudiantes;
 
 $estudiantesController = new EstudiantesController();
 
