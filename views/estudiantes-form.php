@@ -1,14 +1,20 @@
 <?php
+require __DIR__ . "/../controllers/estudiantes-controller.php";
+use App\Controllers\EstudiantesController;
+$estudiantesController = new EstudiantesController();
+$programas = $estudiantesController->getProgramas();
+
 $codigo = empty($_GET['cod']) ? null : $_GET['cod'];
 $titulo = 'Registrar estudiante';
-$action = 'operaciones/crear-estudiante.php';
+$action = 'operaciones/crear-estudiantes.php';
 if (!empty($codigo)) {
     $titulo = 'Modificar estudiante';
-    $action = 'operaciones/editar-estudiante.php';
+    $action = 'operaciones/editar-estudiantes.php';
 }
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +36,8 @@ if (!empty($codigo)) {
             <div>
                 <label for="codigo">Código del estudiante</label>
                 <?php if (!empty($codigo)): ?>
-                    <input type="text" name="codigo_display" id="codigo" value="<?php echo htmlspecialchars($codigo); ?>" readonly>
+                    <input type="text" name="codigo_display" id="codigo" value="<?php echo htmlspecialchars($codigo); ?>"
+                        readonly>
                 <?php else: ?>
                     <input type="text" name="codigo" id="codigo">
                 <?php endif; ?>
@@ -42,14 +49,23 @@ if (!empty($codigo)) {
             </div>
             <div>
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email">  
+                <input type="email" name="email" id="email">
             </div>
             <div>
                 <label for="programa">Programa</label>
-                <input type="text" name="programa" id="programa">  
+                <select name="programa" id="programa" required>
+                    <option value="">Selecciona un programa</option>
+                    <?php foreach ($programas as $programa): ?>
+                        <option value="<?php echo htmlspecialchars($programa['codigo']); ?>" 
+                        <?php echo (isset($estudiante) && $estudiante->get('programa') == $programa['codigo']) ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($programa['nombre']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
         </fieldset>
         <button type="submit">Guardar</button>
     </form>
 </body>
+
 </html>

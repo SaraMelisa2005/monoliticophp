@@ -73,4 +73,10 @@ class EstudiantesController
         }
         return false;
     }
+
+    public function getProgramas()
+    {
+        $estudiantes = new Estudiantes();
+        return $estudiantes->getProgramas();
+    }
 }

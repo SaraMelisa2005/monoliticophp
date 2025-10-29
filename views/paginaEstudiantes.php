@@ -33,7 +33,7 @@ $estudiantes = $estudiantesController->getEstudiantes();
             echo '  <div class="codigo">Código: ' . $estudiante->get('codigo') . '</div>';
             echo '  <div class="nombre">Nombre: ' . $estudiante->get('nombre') . '</div>';
             echo '  <div class="email">Email: ' . $estudiante->get('email') . '</div>';
-            echo '  <div class="programa">Programa: ' . $estudiante->get('programa') . '</div>';
+            echo '  <div class="programa">Programa: ' . $estudiante->get('nombrePrograma') . '</div>';
             echo '  <div class="btns">';
             echo '      <a href="estudiantes-form.php?cod=' . urlencode($estudiante->get('codigo')) . '">';
             echo '          <img class="icono" src="" alt="imagen"/>';
