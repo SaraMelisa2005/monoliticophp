@@ -1,7 +1,8 @@
 <?php
 namespace App\Controllers;
 
-require __DIR__ . "/../models/entities/notas.php";
+require_once __DIR__ . "/../models/entities/notas.php";
+
 
 use App\Models\Entities\Notas;
 

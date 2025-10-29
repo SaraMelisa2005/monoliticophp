@@ -1,5 +1,6 @@
 <?php
-require __DIR__ . "/../../controllers/materias-controller.php";
+require_once __DIR__ . "/../../controllers/materias-controller.php";
+
 use App\Controllers\MateriasController;
 
 $materiasController = new MateriasController();
@@ -8,7 +9,6 @@ if ($isDeleted) {
     header("Location: ../paginaMaterias.php");
     exit;
 } else {
-    
     ?>
     <!DOCTYPE html>
     <html lang="es">

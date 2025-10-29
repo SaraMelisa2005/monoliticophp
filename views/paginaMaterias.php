@@ -2,6 +2,7 @@
 require_once __DIR__ . "/../controllers/materias-controller.php";
 
 use App\Controllers\MateriasController;
+use App\Models\Entities\Materias;
 
 $materiasController = new MateriasController();
 $materias = $materiasController->getMaterias();
@@ -48,16 +49,16 @@ $materias = $materiasController->getMaterias();
         ?>
     </section>
     <div id="borrarModalMaterias" class="modal">
-    <div>  
-        <h3 class="titulo">Eliminar la Materia</h3>
-        <p class="descripcion">¿Desea eliminar la Materia?</p>
-        <form name="borrarMateriasForm" action="operaciones/borrar-materias.php" method="post">
-            <input type="hidden" name="codigo" value="">
-            <button type="submit">Continuar</button>
-            <button type="reset">Cancelar</button>
-        </form>
+        <div>
+            <h3 class="titulo">Eliminar la Materia</h3>
+            <p class="descripcion">¿Desea eliminar la Materia?</p>
+            <form name="borrarMateriasForm" action="operaciones/borrar-materias.php" method="post">
+                <input type="hidden" name="codigo" value="">
+                <button type="submit">Continuar</button>
+                <button type="reset">Cancelar</button>
+            </form>
+        </div>
     </div>
-</div>
     <script src="../public/js/modal-users.js"></script>
 </body>
 </html>
