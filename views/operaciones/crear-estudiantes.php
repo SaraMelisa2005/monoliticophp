@@ -1,17 +1,14 @@
 <?php
-
 require __DIR__ ."/../../controllers/estudiantes-controller.php";
 
 use App\Controllers\EstudiantesController;
 
 $estudiantesController = new EstudiantesController();
-
 $isSaved = $estudiantesController->saveNewEstudiantes($_POST);
 echo $isSaved;
 if ($isSaved) {
     header("Location: ../paginaEstudiantes.php");
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">

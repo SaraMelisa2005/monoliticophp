@@ -19,7 +19,7 @@ if ($isSaved) {
     </head>
     <body>
         <h1>Error al Editar</h1>
-        <p>No se pudo modificar el estudiante. Verifica que no tenga notas registradas.</p>
+        <p>No se pudo modificar el estudiante.</p>
         <a href="../paginaEstudiantes.php">Volver</a>
     </body>
     </html>

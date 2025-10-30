@@ -14,6 +14,7 @@ class Materias extends Model
     private $codigo;
     private $nombre;
     private $programa;
+    private $nombrePrograma;
 
     public function set($prop, $val)
     {
@@ -37,6 +38,7 @@ class Materias extends Model
                 $materia->set('codigo', $item['codigo']);
                 $materia->set('nombre', $item['nombre']);
                 $materia->set('programa', $item['programa']);
+                $materia->set('nombrePrograma', $item['nombrePrograma']);
                 array_push($rows, $materia);
             }
         }
@@ -92,5 +94,20 @@ class Materias extends Model
             return $materia;
         }
         return null;
+    }
+
+    public function getProgramas()
+    {
+        $sql = MateriasSQL::selectProgramas();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sql);
+        $programas = [];
+        if ($result->num_rows > 0) {
+            while ($item = $result->fetch_assoc()) {
+                $programas[] = $item;
+            }
+        }
+        return $programas;
     }
 }

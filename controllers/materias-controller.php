@@ -15,7 +15,8 @@ class MateriasController
 
     public function saveNewMaterias($request)
     {
-        if (empty($request['codigo']) || empty($request['nombre']) || empty($request['programa'])) {
+        if (empty(trim($request['codigo'] ?? '')) || empty(trim($request['nombre'] ?? '')) || 
+        empty(trim($request['programa'] ?? ''))) {
             return false;
         }
         $materias = new Materias();
@@ -27,7 +28,8 @@ class MateriasController
 
     public function updateMaterias($request)
     {
-        if (empty($request['codigo']) || empty($request['nombre']) || empty($request['programa'])) {
+        if (empty(trim($request['codigo'] ?? '')) || empty(trim($request['nombre'] ?? '')) || 
+        empty(trim($request['programa'] ?? ''))) {
             return false;
         }
         $materias = new Materias();
@@ -45,7 +47,6 @@ class MateriasController
         if (empty($request['codigo'])) {
             return false;
         }
-        // Validación: No borrar si tiene notas (query directa)
         if ($this->tieneRelaciones($request['codigo'])) {
             return false;
         }
@@ -64,5 +65,11 @@ class MateriasController
             return true;
         }
         return false;
+    }
+
+    public function getProgramas()
+    {
+        $materias = new Materias();
+        return $materias->getProgramas();
     }
 }

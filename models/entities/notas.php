@@ -38,11 +38,11 @@ class Notas extends Model
         $db = new Databasemonoliticos();
         $db->setIsSqlSelect(true);
         $result = $db->execSQL($sql);
-        
+
         if (!$result) {
             return [];
         }
-        
+
         $rows = [];
         if ($result->num_rows > 0) {
             while ($item = $result->fetch_assoc()) {
@@ -110,22 +110,52 @@ class Notas extends Model
         return null;
     }
     public function findByEstudianteMateria($estudiante, $materia)
-{
-    $sql = "SELECT * FROM notas WHERE estudiante = ? AND materia = ?";
-    $db = new Databasemonoliticos();
-    $db->setIsSqlSelect(true);
-    $result = $db->execSQL($sql, "ss", $estudiante, $materia);
-    $rows = [];
-    if ($result && $result->num_rows > 0) {
-        while ($item = $result->fetch_assoc()) {
-            $nota = new Notas();
-            $nota->set('materia', $item['materia']);
-            $nota->set('estudiante', $item['estudiante']);
-            $nota->set('actividad', $item['actividad']);
-            $nota->set('nota', $item['nota']);
-            $rows[] = $nota;
+    {
+        $sql = "SELECT * FROM notas WHERE estudiante = ? AND materia = ?";
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sql, "ss", $estudiante, $materia);
+        $rows = [];
+        if ($result && $result->num_rows > 0) {
+            while ($item = $result->fetch_assoc()) {
+                $nota = new Notas();
+                $nota->set('materia', $item['materia']);
+                $nota->set('estudiante', $item['estudiante']);
+                $nota->set('actividad', $item['actividad']);
+                $nota->set('nota', $item['nota']);
+                $rows[] = $nota;
+            }
         }
+        return $rows;
     }
-    return $rows;
-}
+
+    public function getMaterias()
+    {
+        $sql = NotasSQL::selectMaterias();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sql);
+        $materias = [];
+        if ($result->num_rows > 0) {
+            while ($item = $result->fetch_assoc()) {
+                $materias[] = $item;
+            }
+        }
+        return $materias;
+    }
+
+    public function getEstudiantes()
+    {
+        $sql = NotasSQL::selectEstudiantes();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sql);
+        $estudiantes = [];
+        if ($result->num_rows > 0) {
+            while ($item = $result->fetch_assoc()) {
+                $estudiantes[] = $item;
+            }
+        }
+        return $estudiantes;
+    }
 }

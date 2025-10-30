@@ -102,7 +102,7 @@ class Estudiantes extends Model
         return null;
     }
 
-        public function getProgramas()
+    public function getProgramas()
     {
         $sql = EstudiantesSQL::selectProgramas();
         $db = new Databasemonoliticos();
@@ -111,7 +111,7 @@ class Estudiantes extends Model
         $programas = [];
         if ($result->num_rows > 0) {
             while ($item = $result->fetch_assoc()) {
-                $programas[] = $item;  // Array con ['codigo' => '1111', 'nombre' => 'Ing. Sistemas']
+                $programas[] = $item;
             }
         }
         return $programas;

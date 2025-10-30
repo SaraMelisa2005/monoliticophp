@@ -9,7 +9,6 @@ use App\Models\Entities\Programas;
 use App\Models\Entities\Estudiantes;
 use App\Models\Entities\Materias;
 
-
 class ProgramasController
 {
 
@@ -22,7 +21,7 @@ class ProgramasController
 
     public function saveNewProgramas($request)
     {
-        if (empty($request['codigo']) || empty($request['nombre'])) {
+        if (empty(trim($request['codigo'] ?? '')) || empty(trim($request['nombre'] ?? ''))) {
             return false;
         }
         $programas = new Programas();
@@ -34,7 +33,7 @@ class ProgramasController
     public function updateProgramas($request)
     {
 
-        if (empty($request['codigo']) || empty($request['nombre'])) {
+        if (empty(trim($request['codigo'] ?? '')) || empty(trim($request['nombre'] ?? ''))) {
             return false;
         }
         $programas = new Programas();
@@ -61,7 +60,6 @@ class ProgramasController
     }
     private function tieneRelaciones($codigo)
     {
-        // Verificar estudiantes
         $sqlEstudiantes = "SELECT COUNT(*) as count FROM estudiantes WHERE programa = ?";
         $db = new \App\Models\Databases\Databasemonoliticos();
         $db->setIsSqlSelect(true);
@@ -69,7 +67,6 @@ class ProgramasController
         if ($result && $result->fetch_assoc()['count'] > 0) {
             return true;
         }
-        // Verificar materias
         $sqlMaterias = "SELECT COUNT(*) as count FROM materias WHERE programa = ?";
         $result = $db->execSQL($sqlMaterias, "s", $codigo);
         if ($result && $result->fetch_assoc()['count'] > 0) {

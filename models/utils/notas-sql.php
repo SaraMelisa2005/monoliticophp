@@ -26,5 +26,14 @@ class NotasSQL
     {
         return "delete from notas where materia = ? and estudiante = ?";
     }
+
+        public static function selectMaterias()
+    {
+        return "select codigo, nombre from materias order by nombre";
+    }
+        public static function selectEstudiantes()
+    {
+        return "select codigo, nombre from estudiantes order by nombre";
+    }
 }
 

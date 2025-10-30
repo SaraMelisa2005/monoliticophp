@@ -1,6 +1,8 @@
 <?php
 require __DIR__ . "/../controllers/estudiantes-controller.php";
+
 use App\Controllers\EstudiantesController;
+
 $estudiantesController = new EstudiantesController();
 $programas = $estudiantesController->getProgramas();
 
@@ -35,19 +37,19 @@ if (!empty($codigo)) {
             <div>
                 <label for="codigo">Código del estudiante</label>
                 <?php if (!empty($codigo)): ?>
-                    <input type="text" name="codigo_display" id="codigo" value="<?php echo htmlspecialchars($codigo); ?>"
+                    <input type="number" name="codigo_display" id="codigo" value="<?php echo htmlspecialchars($codigo); ?>"
                         readonly>
                 <?php else: ?>
-                    <input type="text" name="codigo" id="codigo">
+                    <input type="number" name="codigo" id="codigo" max="99999" required>
                 <?php endif; ?>
             </div>
             <div>
                 <label for="nombre">Nombre del estudiante</label>
-                <input type="text" name="nombre" id="nombre">
+                <input type="text" name="nombre" id="nombre" required>
             </div>
             <div>
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" required>
             </div>
             <div>
                 <label for="programa">Programa</label>

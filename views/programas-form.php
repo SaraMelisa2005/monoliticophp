@@ -21,7 +21,6 @@ if (!empty($codigo)) {
     <form action="<?php echo $action; ?>" method="post">
         <?php
         if (!empty($codigo)) {
-            
             echo '<input type="hidden" name="codigo" value="' . htmlspecialchars($codigo) . '">';
         }
         ?>
@@ -30,16 +29,15 @@ if (!empty($codigo)) {
             <div>
                 <label for="codigo">Código del Programa</label>
                 <?php if (!empty($codigo)): ?>
-                    
-                    <input type="text" name="codigo_display" id="codigo" value="<?php echo htmlspecialchars($codigo); ?>" readonly>
+                    <input type="number" name="codigo_display" id="codigo" value="<?php echo htmlspecialchars($codigo); ?>" readonly>
                 <?php else: ?>
                     
-                    <input type="text" name="codigo" id="codigo">
+                    <input type="number" name="codigo" id="codigo" max="9999" required>
                 <?php endif; ?>
             </div>
             <div>
                 <label for="nombre">Nombre</label>
-                <input type="text" name="nombre" id="nombre" value="<?php echo !empty($_GET['nombre']) ? htmlspecialchars($_GET['nombre']) : ''; ?>">
+                <input type="text" name="nombre" id="nombre" required>
             </div>
         </fieldset>
         <button type="submit">Guardar</button>

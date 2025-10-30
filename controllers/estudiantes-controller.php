@@ -15,7 +15,8 @@ class EstudiantesController
 
     public function saveNewEstudiantes($request)
     {
-        if (empty($request['codigo']) || empty($request['nombre']) || empty($request['email']) || empty($request['programa'])) {
+        if (empty(trim($request['codigo'] ?? '')) || empty(trim($request['nombre'] ?? '')) || 
+        empty(trim($request['email'] ?? '')) || empty(trim($request['programa'] ?? ''))) {
             return false;
         }
         $estudiantes = new Estudiantes();
@@ -28,13 +29,13 @@ class EstudiantesController
 
     public function updateEstudiantes($request)
     {
-        if (empty($request['codigo']) || empty($request['nombre']) || empty($request['email']) || empty($request['programa'])) {
+        if (empty(trim($request['codigo'] ?? '')) || empty(trim($request['nombre'] ?? '')) || 
+        empty(trim($request['email'] ?? '')) || empty(trim($request['programa'] ?? ''))) {
             return false;
         }
 
-        // NUEVO: Validación - No modificar si tiene notas
         if ($this->tieneNotas($request['codigo'])) {
-            return false;  // No permitir modificación
+            return false;  
         }
 
         $estudiantes = new Estudiantes();
@@ -56,7 +57,6 @@ class EstudiantesController
             return false;
         }
 
-        // Validación: No borrar si tiene notas
         if ($this->tieneNotas($request['codigo'])) {
             return false;
         }
@@ -66,7 +66,6 @@ class EstudiantesController
         return $estudiantes->delete();
     }
 
-    // NUEVO: Método auxiliar para verificar notas (query directa)
     private function tieneNotas($codigo)
     {
         $sqlNotas = "SELECT COUNT(*) as count FROM notas WHERE estudiante = ?";

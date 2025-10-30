@@ -15,7 +15,10 @@ class NotasController
 
     public function saveNewNotas($request)
     {
-        if (empty($request['materia']) || empty($request['estudiante']) || empty($request['actividad']) || !isset($request['nota'])) {
+        if (
+            empty(trim($request['materia'] ?? '')) || empty(trim($request['estudiante'] ?? '')) ||
+            empty(trim($request['actividad'] ?? '')) || !isset($request['nota'])
+        ) {
             return false;
         }
         $notaVal = floatval($request['nota']);
@@ -32,7 +35,10 @@ class NotasController
 
     public function updateNotas($request)
     {
-        if (empty($request['materia']) || empty($request['estudiante']) || !isset($request['nota'])) {
+        if (
+            empty(trim($request['materia'] ?? '')) || empty(trim($request['estudiante'] ?? '')) ||
+            empty(trim($request['actividad'] ?? '')) || !isset($request['nota'])
+        ) {
             return false;
         }
         $notaVal = floatval($request['nota']);
@@ -47,7 +53,6 @@ class NotasController
             return false;
         }
 
-        // Actualizar solo la nota
         $existingNota->set('nota', $notaVal);
         return $existingNota->update();
     }
@@ -63,10 +68,21 @@ class NotasController
         return $notas->delete();
     }
 
-    // NUEVO: Método auxiliar para buscar nota por materia y estudiante
     public function findNota($materia, $estudiante)
     {
         $notas = new Notas();
         return $notas->find($materia, $estudiante);
+    }
+
+    public function getMaterias()
+    {
+        $notas = new Notas();
+        return $notas->getMaterias();
+    }
+
+    public function getEstudiantes()
+    {
+        $notas = new Notas();
+        return $notas->getEstudiantes();
     }
 }

@@ -1,4 +1,11 @@
 <?php
+require __DIR__ . "/../controllers/materias-controller.php";
+
+use App\Controllers\MateriasController;
+
+$materiasiasController = new MateriasController();
+$programas = $materiasiasController->getProgramas();
+
 $codigo = empty($_GET['cod']) ? null : $_GET['cod'];
 $titulo = 'Registrar Materias';
 $action = 'operaciones/crear-materias.php';
@@ -29,18 +36,26 @@ if (!empty($codigo)) {
             <div>
                 <label for="codigo">Código de la materia</label>
                 <?php if (!empty($codigo)): ?>
-                    <input type="text" name="codigo_display" id="codigo" value="<?php echo htmlspecialchars($codigo); ?>" readonly>
+                    <input type="number" name="codigo_display" id="codigo" value="<?php echo htmlspecialchars($codigo); ?>" readonly>
                 <?php else: ?>
-                    <input type="text" name="codigo" id="codigo">
+                    <input type="number" name="codigo" id="codigo" max="9999" required>
                 <?php endif; ?>
             </div>
             <div>
                 <label for="nombre">Nombre</label>
-                <input type="text" name="nombre" id="nombre">
+                <input type="text" name="nombre" id="nombre" required>
             </div>
             <div>
                 <label for="programa">Programa</label>
-                <input type="text" name="programa" id="programa">
+                <select name="programa" id="programa" required>
+                    <option value="">Selecciona un programa</option>
+                    <?php foreach ($programas as $programa): ?>
+                        <option value="<?php echo htmlspecialchars($programa['codigo']); ?>" 
+                        <?php echo (isset($estudiante) && $materia->get('programa') == $programa['codigo']) ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($programa['nombre']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
         </fieldset>
         <button type="submit">Guardar</button>

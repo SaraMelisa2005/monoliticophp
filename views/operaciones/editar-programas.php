@@ -1,12 +1,9 @@
 <?php
 require __DIR__ ."/../../controllers/programas-controller.php";
 
-
 use App\Controllers\ProgramasController;
 
 $programasController = new ProgramasController();
-
-
 $isSaved = $programasController->updateProgramas($_POST);
 if ($isSaved) {
     header("Location: ../paginaProgramas.php");

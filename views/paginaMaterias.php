@@ -32,7 +32,7 @@ $materias = $materiasController->getMaterias();
             echo '  <img class="icono" src="" alt="imagen" />';
             echo '  <div class="codigo">Código: ' . $materia->get('codigo') . '</div>';
             echo '  <div class="nombre">Nombre: ' . $materia->get('nombre') . '</div>';
-            echo '  <div class="programa">Programa: ' . $materia->get('programa') . '</div>';
+            echo '  <div class="programa">Programa: ' . $materia->get('nombrePrograma') . '</div>';
             echo '  <div class="btns">';
             echo '      <a href="materias-form.php?cod=' . urlencode($materia->get('codigo')) . '">';
             echo '          <img class="icono" src="" alt="imagen"/>';

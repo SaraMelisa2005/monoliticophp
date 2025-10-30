@@ -4,12 +4,8 @@ class MateriasSQL
 {
     public static function selectAll()
     {
-        return "select * from materias";
-    }
-
-    public static function selectByCodigo()
-    {
-        return "select * from materias where codigo = ?";
+        // return "select * from materias";
+        return "select materias.*, programas.nombre as nombrePrograma from materias inner join programas on materias.programa = programas.codigo";
     }
 
     public static function insertInto()
@@ -25,5 +21,15 @@ class MateriasSQL
     public static function delete()
     {
         return "delete from materias where codigo = ?";
+    }
+
+    public static function selectByCodigo()
+    {
+        return "select * from materias where codigo = ?";
+    }
+
+    public static function selectProgramas()
+    {
+        return "select codigo, nombre from programas order by nombre";
     }
 }
