@@ -17,7 +17,7 @@ $programas = $programasController->getProgramas();
     <link rel="stylesheet" href="../public/css/programas.css">
 </head>
 <body>
-    <h2>Lista de programas</h2>
+    <h2>Módulo de programas</h2>
     <br>
     <section class="">
         <div class="">

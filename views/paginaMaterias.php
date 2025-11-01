@@ -14,13 +14,14 @@ $materias = $materiasController->getMaterias();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materias</title>
     <link rel="stylesheet" href="../public/css/modals.css">
+    <link rel="stylesheet" href="../public/css/materias.css">
 </head>
 <body>
-    <h2>Lista de materias</h2>
+    <h2>Módulo de materias</h2>
     <br>
     <section class="">
         <div class="">
-            <img class="icono" src="" alt="imagen" />
+            <img class="icono" src="../public/res/menu_book.svg" alt="imagen" />
             <div class="id">Nueva materia</div>
             <div class="name">
                 <a href="materias-form.php">Crear materias</a>
@@ -29,20 +30,21 @@ $materias = $materiasController->getMaterias();
         <?php
         foreach ($materias as $materia) {
             echo '<div class="">';
-            echo '  <img class="icono" src="" alt="imagen" />';
-            echo '  <div class="codigo">Código: ' . $materia->get('codigo') . '</div>';
-            echo '  <div class="nombre">Nombre: ' . $materia->get('nombre') . '</div>';
-            echo '  <div class="programa">Programa: ' . $materia->get('nombrePrograma') . '</div>';
+            echo '  <img class="icono" src="../public/res/book.svg" alt="Materia" />';
+            echo '  <div class="codigo"><strong>Código:</strong> ' . $materia->get('codigo') . '</div>';
+            echo '  <div class="nombre"><strong>Nombre:</strong> ' . $materia->get('nombre') . '</div>';
+            echo '  <div class="programa"><strong>Programa:</strong> ' . $materia->get('programa') . '</div>';
             echo '  <div class="btns">';
             echo '      <a href="materias-form.php?cod=' . urlencode($materia->get('codigo')) . '">';
-            echo '          <img class="icono" src="" alt="imagen"/>';
+            echo '          <img class="icono" src="../public/res/edit.svg" alt="Editar"/>';
             echo '      </a>';
             echo '      <button onclick="borrarMateria(\'' . addslashes($materia->get('codigo')) . '\')">';
-            echo '          <img class="icono" src="" alt="imagen"/>';
+            echo '          <img class="icono" src="../public/res/delete.svg" alt="Eliminar"/>';
             echo '      </button>';
             echo '  </div>';
             echo '</div>';
         }
+        
         if (count($materias) == 0) {
             echo '<div>No hay materias registradas</div>';
         }
