@@ -14,7 +14,7 @@ $programas = $programasController->getProgramas();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programas</title>
     <link rel="stylesheet" href="../public/css/modals.css">
-    <link rel="stylesheet" href="../public/css/programas.css">
+    <link rel="stylesheet" href="../public/css/diseño.css">
 </head>
 <body>
     <h2>Módulo de programas</h2>

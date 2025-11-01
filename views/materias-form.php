@@ -24,6 +24,7 @@ if (!empty($codigo)) {
 <body>
     <h1><?php echo $titulo; ?></h1>
     <a href="paginaMaterias.php">Volver</a>
+    <link rel="stylesheet" href="../public/css/forms.css">
     <br>
     <form action="<?php echo $action; ?>" method="post">
         <?php

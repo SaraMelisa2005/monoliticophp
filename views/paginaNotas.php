@@ -14,7 +14,7 @@ $notas = $notasController->getNotas();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notas</title>
     <link rel="stylesheet" href="../public/css/modals.css">
-    <link rel="stylesheet" href="../public/css/notas.css">
+    <link rel="stylesheet" href="../public/css/diseño.css">
 </head>
 <body>
     <h2>Módulo de notas</h2>

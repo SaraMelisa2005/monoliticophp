@@ -14,7 +14,7 @@ $materias = $materiasController->getMaterias();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materias</title>
     <link rel="stylesheet" href="../public/css/modals.css">
-    <link rel="stylesheet" href="../public/css/materias.css">
+    <link rel="stylesheet" href="../public/css/diseño.css">
 </head>
 <body>
     <h2>Módulo de materias</h2>
@@ -30,7 +30,7 @@ $materias = $materiasController->getMaterias();
         <?php
         foreach ($materias as $materia) {
             echo '<div class="">';
-            echo '  <img class="icono" src="../public/res/book.svg" alt="Materia" />';
+            echo '  <img class="icono" src="../public/res/checkbook.svg" alt="Materia" />';
             echo '  <div class="codigo"><strong>Código:</strong> ' . $materia->get('codigo') . '</div>';
             echo '  <div class="nombre"><strong>Nombre:</strong> ' . $materia->get('nombre') . '</div>';
             echo '  <div class="programa"><strong>Programa:</strong> ' . $materia->get('programa') . '</div>';

@@ -14,7 +14,7 @@ $estudiantes = $estudiantesController->getEstudiantes();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudiantes</title>
     <link rel="stylesheet" href="../public/css/modals.css">
-    <link rel="stylesheet" href="../public/css/estudiantes.css">
+    <link rel="stylesheet" href="../public/css/diseño.css">
 </head>
 <body>
     <h2>Módulo de estudiantes</h2>

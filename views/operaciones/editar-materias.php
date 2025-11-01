@@ -20,6 +20,7 @@ if ($isSaved) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Materia</title>
+    
 </head>
 <body>
     <h1>Error al editar</h1>
