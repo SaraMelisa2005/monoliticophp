@@ -25,7 +25,12 @@ class NotasController
         if ($notaVal < 0 || $notaVal > 5) {
             return false;
         }
+
         $notas = new Notas();
+        if (!$notas->materiaTienePrograma($request['materia'])) {
+            return false;
+        }
+        
         $notas->set('materia', $request['materia']);
         $notas->set('estudiante', $request['estudiante']);
         $notas->set('actividad', $request['actividad']);
@@ -47,7 +52,7 @@ class NotasController
         }
 
         $notas = new Notas();
-        $existingNota = $notas->find($request['materia'], $request['estudiante']);  // Buscar por clave compuesta
+        $existingNota = $notas->find($request['materia'], $request['estudiante']); 
 
         if (!$existingNota) {
             return false;
@@ -84,5 +89,11 @@ class NotasController
     {
         $notas = new Notas();
         return $notas->getEstudiantes();
+    }
+
+    public function getPromedios()
+    {
+        $notas = new Notas();
+        return $notas->getPromedios();
     }
 }

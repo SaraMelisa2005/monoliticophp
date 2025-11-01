@@ -14,7 +14,6 @@ class Materias extends Model
     private $codigo;
     private $nombre;
     private $programa;
-    private $nombrePrograma;
 
     public function set($prop, $val)
     {
@@ -109,5 +108,25 @@ class Materias extends Model
             }
         }
         return $programas;
+    }
+
+    public function tieneRelaciones($codigo)
+    {
+        $sqlNotas = MateriasSQL::selectCountNotasByMateria();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sqlNotas, "s", $codigo);
+        if ($result && $result->fetch_assoc()['count'] > 0) {
+            return true;
+        }
+
+        $sqlEstudiantes = MateriasSQL::selectCountEstudiantesByMateria();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sqlEstudiantes, "s", $codigo);
+        if ($result && $result->fetch_assoc()['count'] > 0) {
+            return true;
+        }
+        return false;
     }
 }

@@ -34,7 +34,8 @@ class EstudiantesController
             return false;
         }
 
-        if ($this->tieneNotas($request['codigo'])) {
+        $estudiantes = new Estudiantes();
+        if ($estudiantes->tieneRelaciones($request['codigo'])) {
             return false;  
         }
 
@@ -57,25 +58,14 @@ class EstudiantesController
             return false;
         }
 
-        if ($this->tieneNotas($request['codigo'])) {
+        $estudiantes = new Estudiantes();
+        if ($estudiantes->tieneRelaciones($request['codigo'])) {
             return false;
         }
 
         $estudiantes = new Estudiantes();
         $estudiantes->set('codigo', $request['codigo']);
         return $estudiantes->delete();
-    }
-
-    private function tieneNotas($codigo)
-    {
-        $sqlNotas = "SELECT COUNT(*) as count FROM notas WHERE estudiante = ?";
-        $db = new \App\Models\Databases\Databasemonoliticos();
-        $db->setIsSqlSelect(true);
-        $result = $db->execSQL($sqlNotas, "s", $codigo);
-        if ($result && $result->fetch_assoc()['count'] > 0) {
-            return true;
-        }
-        return false;
     }
 
     public function getProgramas()

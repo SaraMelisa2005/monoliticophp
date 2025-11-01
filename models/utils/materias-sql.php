@@ -32,4 +32,14 @@ class MateriasSQL
     {
         return "select codigo, nombre from programas order by nombre";
     }
+
+    public static function selectCountNotasByMateria()
+    {
+        return "SELECT COUNT(*) as count FROM notas WHERE materia = ?";
+    }
+
+    public static function selectCountEstudiantesByMateria()
+    {
+        return "SELECT COUNT(*) as count FROM estudiantes WHERE materia = ?";
+    }
 }

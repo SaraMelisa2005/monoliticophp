@@ -4,7 +4,9 @@ class NotasSQL
 {
     public static function selectAll()
     {
-        return "select * from notas";
+        return "SELECT notas.*, materias.nombre AS nombreMateria, estudiantes.nombre 
+        AS nombreEstudiante FROM notas INNER JOIN materias ON notas.materia = materias.codigo 
+        INNER JOIN estudiantes ON notas.estudiante = estudiantes.codigo";
     }
 
     public static function selectByMateriaEstudiante()
@@ -35,5 +37,13 @@ class NotasSQL
     {
         return "select codigo, nombre from estudiantes order by nombre";
     }
+    public static function selectPromedios()
+    {
+        return "SELECT estudiante, materia, ROUND(AVG(nota), 2) as promedio FROM notas GROUP BY estudiante, 
+        materia ORDER BY estudiante, materia";
+    }
+    public static function selectCountMateriaConPrograma()
+    {
+        return "SELECT COUNT(*) as count FROM materias WHERE codigo = ? AND programa IS NOT NULL AND programa != ''";
+    }
 }
-

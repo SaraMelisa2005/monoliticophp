@@ -48,7 +48,9 @@ class Notas extends Model
             while ($item = $result->fetch_assoc()) {
                 $nota = new Notas();
                 $nota->set('materia', $item['materia']);
+                $nota->set('nombreMateria', $item['nombreMateria']);
                 $nota->set('estudiante', $item['estudiante']);
+                $nota->set('nombreEstudiante', $item['nombreEstudiante']);
                 $nota->set('actividad', $item['actividad']);
                 $nota->set('nota', $item['nota']);
                 array_push($rows, $nota);
@@ -157,5 +159,32 @@ class Notas extends Model
             }
         }
         return $estudiantes;
+    }
+
+    public function getPromedios()
+    {
+        $sql = NotasSQL::selectPromedios();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sql);
+        $promedios = [];
+        if ($result && $result->num_rows > 0) {
+            while ($item = $result->fetch_assoc()) {
+                $promedios[] = $item;
+            }
+        }
+        return $promedios;
+    }
+
+    public function materiaTienePrograma($codigoMateria)
+    {
+        $sql = NotasSQL::selectCountMateriaConPrograma();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sql, "s", $codigoMateria);
+        if ($result && $result->fetch_assoc()['count'] > 0) {
+            return true;
+        }
+        return false;
     }
 }

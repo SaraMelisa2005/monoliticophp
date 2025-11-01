@@ -1,4 +1,3 @@
-// Para notas
 const formNotas = document.forms['borrarNotasForm'];
 const modalNotas = document.getElementById('borrarModalNotas');
 
@@ -36,7 +35,6 @@ if (formEstudiantes) {
     });
 }
 
-// Para materias
 const formMaterias = document.forms['borrarMateriasForm'];
 const modalMaterias = document.getElementById('borrarModalMaterias');
 const borrarMateria = (codigo) => {
@@ -51,7 +49,6 @@ if (formMaterias) {
         modalMaterias.classList.remove('show');
     });
 }
-// Para programas
 const formProgramas = document.forms['borrarProgramasForm'];
 const modalProgramas = document.getElementById('borrarModalProgramas');
 

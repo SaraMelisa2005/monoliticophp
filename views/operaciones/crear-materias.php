@@ -2,9 +2,7 @@
 
 require __DIR__ ."/../../controllers/materias-controller.php";
 
-
 use App\Controllers\MateriasController;
-use App\Models\Entities\Materias;
 
 $materiasController = new MateriasController();
 

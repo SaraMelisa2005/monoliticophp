@@ -28,6 +28,15 @@ class ProgramasSQL
     public static function delete(){
         return "delete from programas where codigo=?";
     }
+
+    public static function selectCountEstudiantesByPrograma()
+    {
+        return "select count(*) as count from estudiantes where programa = ?";
+    }
+    public static function selectCountMateriasByPrograma()
+    {
+        return "select count(*) as count from materias where programa = ?";
+    }
 }
 
 ?>

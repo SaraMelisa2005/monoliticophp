@@ -15,6 +15,7 @@ $titulo = 'Registrar Notas';
 $action = 'operaciones/crear-notas.php';
 $actividad = '';
 $notas = '';
+$existingNota = null;
 if (!empty($materia) && !empty($estudiante)) {
     $titulo = 'Modificar Notas';
     $action = 'operaciones/editar-notas.php';
@@ -32,13 +33,11 @@ if (!empty($materia) && !empty($estudiante)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $titulo; ?></title>
-
 </head>
 
 <body>
     <h1><?php echo $titulo; ?></h1>
     <a href="paginaNotas.php">Volver</a>
-    <link rel="stylesheet" href="../public/css/forms.css">
     <br>
     <form action="<?php echo $action; ?>" method="post">
         <?php
@@ -51,32 +50,58 @@ if (!empty($materia) && !empty($estudiante)) {
             <legend><?php echo $titulo; ?></legend>
             <div>
                 <label for="materia">Materia</label>
-                <select name="materia" id="materia" required>
-                    <option value="">Selecciona una materia</option>
-                    <?php foreach ($materias as $materia): ?>
-                        <option value="<?php echo htmlspecialchars($materia['codigo']); ?>" 
-                        <?php echo (isset($nota) && $nota->get('materia') == $materia['codigo']) ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($materia['nombre']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <?php if (!empty($materia) && !empty($estudiante) && $existingNota): ?>
+                    <span>
+                        <?php
+                        foreach ($materias as $mat) {
+                            if ($mat['codigo'] === $existingNota->get('materia')) {
+                                echo htmlspecialchars($mat['nombre']);
+                                break;
+                            }
+                        }
+                        ?>
+                    </span>
+                <?php else: ?>
+                    <select name="materia" id="materia" required>
+                        <option value="">Selecciona una materia</option>
+                        <?php foreach ($materias as $mat): ?>
+                            <option value="<?php echo htmlspecialchars($mat['codigo']); ?>" 
+                            <?php echo (isset($existingNota) && $existingNota->get('materia') == $mat['codigo']) ? 'selected' : ''; ?>>
+                                <?php echo htmlspecialchars($mat['nombre']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php endif; ?>
             </div>
             <div>
                 <label for="estudiante">Estudiante</label>
-                <select name="estudiante" id="estudiante" required>
-                    <option value="">Selecciona un estudiante</option>
-                    <?php foreach ($estudiantes as $estudiante): ?>
-                        <option value="<?php echo htmlspecialchars($estudiante['codigo']); ?>" 
-                        <?php echo (isset($nota) && $nota->get('estudiante') == $estudiante['codigo']) ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($estudiante['nombre']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <?php if (!empty($materia) && !empty($estudiante) && $existingNota): ?>
+                    <span>
+                        <?php
+                        foreach ($estudiantes as $est) {
+                            if ($est['codigo'] === $existingNota->get('estudiante')) {
+                                echo htmlspecialchars($est['nombre']);
+                                break;
+                            }
+                        }
+                        ?>
+                    </span>
+                <?php else: ?>
+                    <select name="estudiante" id="estudiante" required>
+                        <option value="">Selecciona un estudiante</option>
+                        <?php foreach ($estudiantes as $est): ?>
+                            <option value="<?php echo htmlspecialchars($est['codigo']); ?>" 
+                            <?php echo (isset($existingNota) && $existingNota->get('estudiante') == $est['codigo']) ? 'selected' : ''; ?>>
+                                <?php echo htmlspecialchars($est['nombre']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php endif; ?>
             </div>
             <div>
                 <label for="actividad">Actividad</label>
                 <?php if (!empty($materia) && !empty($estudiante)): ?>
-                    <input type="text" name="actividad_display" id="actividad"
+                    <input type="text" name="actividad" id="actividad"
                         value="<?php echo htmlspecialchars($actividad); ?>" readonly>
                 <?php else: ?>
                     <input type="text" name="actividad" id="actividad" required>
@@ -85,11 +110,10 @@ if (!empty($materia) && !empty($estudiante)) {
             <div>
                 <label for="nota">Nota</label>
                 <input type="number" name="nota" id="nota" min="0" max="5" step="0.01"
-                    value="<?php echo htmlspecialchars($nota); ?>" required>
+                    value="<?php echo htmlspecialchars($notas); ?>" required>
             </div>
         </fieldset>
         <button type="submit">Guardar</button>
     </form>
 </body>
-
 </html>

@@ -2,10 +2,18 @@
 require_once __DIR__ . "/../controllers/materias-controller.php";
 
 use App\Controllers\MateriasController;
-use App\Models\Entities\Materias;
 
 $materiasController = new MateriasController();
 $materias = $materiasController->getMaterias();
+
+$materiasPorPrograma = [];
+foreach ($materias as $materia) {
+    $programa = $materia->get('nombrePrograma') ?: 'Sin Programa Asignado';
+    if (!isset($materiasPorPrograma[$programa])) {
+        $materiasPorPrograma[$programa] = [];
+    }
+    $materiasPorPrograma[$programa][] = $materia;
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,13 +22,14 @@ $materias = $materiasController->getMaterias();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materias</title>
     <link rel="stylesheet" href="../public/css/modals.css">
-    <link rel="stylesheet" href="../public/css/diseño.css">
+    <link rel="stylesheet" href="../public/css/diseno.css">
 </head>
 <body>
     <h2>Módulo de materias</h2>
     <br>
-    <section class="">
-        <div class="">
+    <a href="../index.php">Volver</a>
+    <section>
+        <div>
             <img class="icono" src="../public/res/menu_book.svg" alt="imagen" />
             <div class="id">Nueva materia</div>
             <div class="name">
@@ -28,28 +37,30 @@ $materias = $materiasController->getMaterias();
             </div>
         </div>
         <?php
-        foreach ($materias as $materia) {
-            echo '<div class="">';
-            echo '  <img class="icono" src="../public/res/checkbook.svg" alt="Materia" />';
-            echo '  <div class="codigo"><strong>Código:</strong> ' . $materia->get('codigo') . '</div>';
-            echo '  <div class="nombre"><strong>Nombre:</strong> ' . $materia->get('nombre') . '</div>';
-            echo '  <div class="programa"><strong>Programa:</strong> ' . $materia->get('programa') . '</div>';
-            echo '  <div class="btns">';
-            echo '      <a href="materias-form.php?cod=' . urlencode($materia->get('codigo')) . '">';
-            echo '          <img class="icono" src="../public/res/edit.svg" alt="Editar"/>';
-            echo '      </a>';
-            echo '      <button onclick="borrarMateria(\'' . addslashes($materia->get('codigo')) . '\')">';
-            echo '          <img class="icono" src="../public/res/delete.svg" alt="Eliminar"/>';
-            echo '      </button>';
-            echo '  </div>';
-            echo '</div>';
-        }
-        
-        if (count($materias) == 0) {
+         if (count($materiasPorPrograma) > 0) {
+            foreach ($materiasPorPrograma as $programa => $materiasPrograma) {
+                echo '<h3>Programa: ' . $programa . '</h3>';
+                foreach ($materiasPrograma as $materia) {
+                    echo '<div>';
+                    echo '  <img class="icono" src="../public/res/checkbook.svg" alt="imagen" />';
+                    echo '  <div class="codigo">Código: ' . $materia->get('codigo') . '</div>';
+                    echo '  <div class="nombre">Nombre: ' . $materia->get('nombre') . '</div>';
+                    echo '  <div class="programa">Programa: ' . $materia->get('nombrePrograma') . '</div>';
+                    echo '  <div class="btns">';
+                    echo '      <a href="materias-form.php?cod=' . urlencode($materia->get('codigo')) . '">';
+                    echo '          <img class="icono" src="../public/res/edit.svg" alt="imagen"/>';
+                    echo '      </a>';
+                    echo '      <button onclick="borrarMateria(\'' . addslashes($materia->get('codigo')) . '\')">';
+                    echo '          <img class="icono" src="../public/res/delete.svg" alt="imagen"/>';
+                    echo '      </button>';
+                    echo '  </div>';
+                    echo '</div>';
+                }
+            }
+        } else {
             echo '<div>No hay materias registradas</div>';
         }
         ?>
-         <a href="../index.php">Volver</a>
     </section>
     <div id="borrarModalMaterias" class="modal">
         <div>

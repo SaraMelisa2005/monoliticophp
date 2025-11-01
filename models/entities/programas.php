@@ -15,7 +15,6 @@ class Programas extends Model
 {
     private $codigo;
     private $nombre;
-    
 
     public function set($prop, $val)
     {
@@ -81,10 +80,9 @@ class Programas extends Model
         return $result;
     }
 
-        // NUEVO: Implementa find() para buscar por codigo
     public function find($codigo)
     {
-        $sql = ProgramasSQL::selectByCodigo();  // Necesitas agregar este método en ProgramasSQL
+        $sql = ProgramasSQL::selectByCodigo();
         $db = new Databasemonoliticos();
         $db->setIsSqlSelect(true);
         $result = $db->execSQL($sql, "s", $codigo);
@@ -97,5 +95,22 @@ class Programas extends Model
         }
         return null;  
     }
-    
+
+    public function tieneRelaciones($codigo)
+    {
+        $sqlEstudiantes = ProgramasSQL::selectCountEstudiantesByPrograma();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sqlEstudiantes, "s", $codigo);
+        if ($result && $result->fetch_assoc()['count'] > 0) {
+            return true;
+        }
+        
+        $sqlMaterias = ProgramasSQL::selectCountMateriasByPrograma();
+        $result = $db->execSQL($sqlMaterias, "s", $codigo);
+        if ($result && $result->fetch_assoc()['count'] > 0) {
+            return true;
+        }
+        return false;
+    }
 }

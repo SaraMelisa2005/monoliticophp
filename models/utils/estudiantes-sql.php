@@ -33,6 +33,10 @@ class EstudiantesSQL
         return "select codigo, nombre from programas order by nombre";
     }
 
+    public static function selectCountNotasByEstudiante()
+    {
+        return "SELECT COUNT(*) as count FROM notas WHERE estudiante = ?";
+    }
 }
 
 ?>

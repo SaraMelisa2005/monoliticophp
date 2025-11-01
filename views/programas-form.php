@@ -12,12 +12,12 @@ if (!empty($codigo)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/forms.css">
     <title><?php echo $titulo; ?></title>
 </head>
 <body>
     <h1><?php echo $titulo; ?></h1>
     <a href="paginaProgramas.php">Volver</a>
-    <link rel="stylesheet" href="../public/css/forms.css">
     <br>
     <form action="<?php echo $action; ?>" method="post">
         <?php

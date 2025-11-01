@@ -17,7 +17,6 @@ class Estudiantes extends Model
     private $nombre;
     private $email;
     private $programa;
-    private $nombrePrograma;
 
     public function set($prop, $val)
     {
@@ -115,5 +114,17 @@ class Estudiantes extends Model
             }
         }
         return $programas;
+    }
+
+    public function tieneRelaciones($codigo)
+    {
+        $sqlNotas = EstudiantesSQL::selectCountNotasByEstudiante();
+        $db = new Databasemonoliticos();
+        $db->setIsSqlSelect(true);
+        $result = $db->execSQL($sqlNotas, "s", $codigo);
+        if ($result && $result->fetch_assoc()['count'] > 0) {
+            return true;
+        }
+        return false;
     }
 }

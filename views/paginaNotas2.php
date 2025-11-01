@@ -13,13 +13,13 @@ foreach ($promedios as $p) {
     $promediosMap[$key] = $p['promedio'];
 }
 
-$notasPorMateria = [];
+$notasPorEstudiante = [];
 foreach ($notas as $nota) {
-    $materia = $nota->get('nombreMateria') ?: 'Sin Materia Asignada';
-    if (!isset($notasPorMateria[$materia])) {
-        $notasPorMateria[$materia] = [];
+    $estudiante = $nota->get('nombreEstudiante') ?: 'Sin Estudiante Asignado';
+    if (!isset($notasPorEstudiante[$estudiante])) {
+        $notasPorEstudiante[$estudiante] = [];
     }
-    $notasPorMateria[$materia][] = $nota;
+    $notasPorEstudiante[$estudiante][] = $nota;
 }
 ?>
 <!DOCTYPE html>
@@ -28,17 +28,15 @@ foreach ($notas as $nota) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notas</title>
-    <link rel="stylesheet" href="../public/css/modals.css">
     <link rel="stylesheet" href="../public/css/diseno.css">
+    <link rel="stylesheet" href="../public/css/modals.css">
 </head>
 <body>
-    <h2>Módulo de notas</h2>
+    <h2>Lista de notas</h2>
     <br>
-    <a href="paginaNotas2.php">Por estudiantes</a>
+    <a href="paginaNotas.php">volver</a>
     <br>
-    <a href="paginaNotas2.php">Nota de estudiante por materia</a>
-    <br>
-    <a href="../index.php">Volver</a>
+    <a href="../index.php">inicio</a>
     <section>
         <div>
             <img class="icono" src="../public/res/playlist.svg" alt="imagen" />
@@ -48,10 +46,10 @@ foreach ($notas as $nota) {
             </div>
         </div>
         <?php
-        if (count($notasPorMateria) > 0) {
-            foreach ($notasPorMateria as $materia => $notasMateria) {
-                echo '<h3>Materia: ' . $materia . '</h3>';
-                foreach ($notasMateria as $nota) {
+        if (count($notasPorEstudiante) > 0) {
+            foreach ($notasPorEstudiante as $estudiante => $notasEstudiante) {
+                echo '<h3>Estudiante: ' . $estudiante . '</h3>';
+                foreach ($notasEstudiante as $nota) {
                     $key = $nota->get('estudiante') . '-' . $nota->get('materia');
                     $promedio = isset($promediosMap[$key]) ? $promediosMap[$key] : 0;
                     echo '<div>';

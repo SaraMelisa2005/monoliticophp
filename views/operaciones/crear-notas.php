@@ -4,10 +4,8 @@ require __DIR__ ."/../../controllers/notas-controller.php";
 
 
 use App\Controllers\NotasController;
-use App\Models\Entities\Notas;
 
 $notasController = new NotasController();
-
 $isSaved = $notasController->saveNewNotas($_POST);
 
 if ($isSaved) {

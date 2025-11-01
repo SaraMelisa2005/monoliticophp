@@ -37,6 +37,12 @@ class MateriasController
         if (!$existingMateria) {
             return false;
         }
+
+        $estudiantes = new Materias();
+        if ($estudiantes->tieneRelaciones($request['codigo'])) {
+            return false;
+        }
+
         $existingMateria->set('nombre', $request['nombre']);
         $existingMateria->set('programa', $request['programa']);
         return $existingMateria->update();
@@ -47,24 +53,15 @@ class MateriasController
         if (empty($request['codigo'])) {
             return false;
         }
-        if ($this->tieneRelaciones($request['codigo'])) {
+
+        $estudiantes = new Materias();
+        if ($estudiantes->tieneRelaciones($request['codigo'])) {
             return false;
         }
+
         $materias = new Materias();
         $materias->set('codigo', $request['codigo']);
         return $materias->delete();
-    }
-
-    private function tieneRelaciones($codigo)
-    {
-        $sqlNotas = "SELECT COUNT(*) as count FROM notas WHERE materia = ?";
-        $db = new \App\Models\Databases\Databasemonoliticos();
-        $db->setIsSqlSelect(true);
-        $result = $db->execSQL($sqlNotas, "s", $codigo);
-        if ($result && $result->fetch_assoc()['count'] > 0) {
-            return true;
-        }
-        return false;
     }
 
     public function getProgramas()

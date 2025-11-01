@@ -7,7 +7,6 @@ use App\Models\Entities\Materias;
 
 $materiasController = new MateriasController();
 
-
 $isSaved = $materiasController->updateMaterias($_POST);
 if ($isSaved) {
     header("Location: ../paginaMaterias.php");

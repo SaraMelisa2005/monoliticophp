@@ -4,12 +4,9 @@ require __DIR__ . "/../../controllers/notas-controller.php";
 
 use App\Controllers\NotasController;
 
-
 $notasController = new NotasController();
 
-
 $isDeleted = $notasController->deleteNotas($_POST);
-
 
 if ($isDeleted) {
     header("Location: ../paginaNotas.php");

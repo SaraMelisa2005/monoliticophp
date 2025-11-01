@@ -2,25 +2,48 @@
 require __DIR__ . "/../controllers/programas-controller.php";
 
 use App\Controllers\ProgramasController;
-use App\Models\Entities\Programas;
 
 $programasController = new ProgramasController();
 $programas = $programasController->getProgramas();
+
+$busqueda = isset($_GET['busqueda']) ? trim($_GET['busqueda']) : '';
+if (!empty($busqueda)) {
+    $programas = array_filter($programas, function ($programa) use ($busqueda) {
+        $codigo = strtolower($programa->get('codigo'));
+        $nombre = strtolower($programa->get('nombre'));
+        $busquedaLower = strtolower($busqueda);
+        return strpos($codigo, $busquedaLower) !== false || strpos($nombre, $busquedaLower) !== false;
+    });
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programas</title>
+    <link rel="stylesheet" href="../public/css/diseno.css">
     <link rel="stylesheet" href="../public/css/modals.css">
-    <link rel="stylesheet" href="../public/css/diseño.css">
 </head>
+
 <body>
-    <h2>Módulo de programas</h2>
+    <h2>Lista de programas</h2>
     <br>
-    <section class="">
-        <div class="">
+    <a href="../index.php">Volver</a>
+    <br>
+    <form method="get" action="">
+        <label for="busqueda">Buscar por código o nombre:</label>
+        <input type="text" name="busqueda" id="busqueda" value="<?php echo htmlspecialchars($busqueda); ?>"
+            placeholder="Ingrese término de búsqueda">
+        <button type="submit">Buscar</button>
+        <?php if (!empty($busqueda)): ?>
+            <a href="paginaProgramas.php">Limpiar búsqueda</a>
+        <?php endif; ?>
+    </form>
+    <br>
+    <section>
+        <div>
             <img class="icono" src="../public/res/school.svg" alt="imagen" />
             <div class="id">Nuevo Programa</div>
             <div class="name">
@@ -28,11 +51,11 @@ $programas = $programasController->getProgramas();
             </div>
         </div>
         <?php
-                foreach ($programas as $programa) {
-            echo '<div class="">';
-            echo '  <img class="icono" src="../public/res/history_edu.svg" alt="imagen" />';  
-            echo '  <div class="codigo"><strong>Código:</strong> ' . $programa->get('codigo') . '</div>';
-            echo '  <div class="nombre"><strong>Nombre:</strong> ' . $programa->get('nombre') . '</div>';
+        foreach ($programas as $programa) {
+            echo '<div>';
+            echo '  <img class="icono" src="../public/res/history_edu.svg" alt="imagen" />';
+            echo '  <div class="codigo">Código: ' . $programa->get('codigo') . '</div>';
+            echo '  <div class="nombre">Nombre: ' . $programa->get('nombre') . '</div>';
             echo '  <div class="btns">';
             echo '      <a href="programas-form.php?cod=' . urlencode($programa->get('codigo')) . '">';
             echo '          <img class="icono" src="../public/res/edit.svg" alt="imagen"/>';
@@ -47,7 +70,6 @@ $programas = $programasController->getProgramas();
             echo '<div>No hay programas registrados</div>';
         }
         ?>
-         <a href="../index.php">Volver</a>
     </section>
     <div id="borrarModalProgramas" class="modal">
         <div>
@@ -62,4 +84,5 @@ $programas = $programasController->getProgramas();
     </div>
     <script src="../public/js/modal-users.js"></script>
 </body>
+
 </html>
