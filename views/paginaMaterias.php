@@ -49,6 +49,7 @@ $materias = $materiasController->getMaterias();
             echo '<div>No hay materias registradas</div>';
         }
         ?>
+         <a href="../index.php">Volver</a>
     </section>
     <div id="borrarModalMaterias" class="modal">
         <div>

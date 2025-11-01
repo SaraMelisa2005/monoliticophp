@@ -47,6 +47,7 @@ $programas = $programasController->getProgramas();
             echo '<div>No hay programas registrados</div>';
         }
         ?>
+         <a href="../index.php">Volver</a>
     </section>
     <div id="borrarModalProgramas" class="modal">
         <div>

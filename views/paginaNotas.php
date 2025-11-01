@@ -49,6 +49,7 @@ $notas = $notasController->getNotas();
             echo '<div>No hay notas registradas</div>';
         }
         ?>
+         <a href="../index.php">Volver</a>
     </section>
     <div id="borrarModalNotas" class="modal">
         <div>

@@ -18,6 +18,7 @@ $estudiantes = $estudiantesController->getEstudiantes();
 </head>
 <body>
     <h2>Módulo de estudiantes</h2>
+    
     <br>
     <section class="">
         <div class="">
@@ -25,6 +26,7 @@ $estudiantes = $estudiantesController->getEstudiantes();
             <div class="id">Nuevo Estudiante</div>
             <div class="name">
                 <a href="estudiantes-form.php">Crear estudiante</a>
+                
             </div>
         </div>
         <?php
@@ -49,6 +51,7 @@ $estudiantes = $estudiantesController->getEstudiantes();
             echo '<div>No hay estudiantes registrados</div>';
         }
         ?>
+        <a href="../index.php">Volver</a>
     </section>
     <div id="borrarModalEstudiantes" class="modal">
         <div>
