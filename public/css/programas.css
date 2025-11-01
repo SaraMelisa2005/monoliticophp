@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa; 
+    background-color: #f8f9fa;  
     color: #333;  
     line-height: 1.6;
     padding: 20px;
@@ -28,13 +28,13 @@ section {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
     gap: 20px;
 }
 
 
 section > div:first-child {
-    background: linear-gradient(135deg, #992121, #7a1a1a);  
+    background: linear-gradient(135deg, #c52c2c, #992121);  
     color: white;
     border-radius: 12px;
     padding: 20px;
@@ -99,15 +99,13 @@ section > div:not(:first-child) img {
 
 section > div:not(:first-child) strong {
     font-weight: bold;
-    color: #a71e1e;  
+    color: #992121;  
     font-size: 1.1rem;
     margin-right: 5px;
 }
 
 section > div:not(:first-child) .codigo,
-section > div:not(:first-child) .nombre,
-section > div:not(:first-child) .email,
-section > div:not(:first-child) .programa {
+section > div:not(:first-child) .nombre {
     margin-bottom: 8px;
     font-size: 1rem;
     color: #666;  
@@ -115,7 +113,7 @@ section > div:not(:first-child) .programa {
 
 section > div:not(:first-child) .codigo {
     font-weight: bold;
-    color: #992121; 
+    color: #000000;  
 }
 
 
@@ -154,14 +152,10 @@ section > div:only-child {
     color: #6c757d;
     padding: 40px;
 }
+
+
 .btns a:focus,
 .btns button:focus {
-    outline: 2px solid #992121;
+    outline: 2px solid #28a745;
     outline-offset: 2px;
 }
-
-
-
-
-
-

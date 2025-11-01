@@ -14,30 +14,31 @@ $programas = $programasController->getProgramas();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programas</title>
     <link rel="stylesheet" href="../public/css/modals.css">
+    <link rel="stylesheet" href="../public/css/programas.css">
 </head>
 <body>
     <h2>Lista de programas</h2>
     <br>
     <section class="">
         <div class="">
-            <img class="icono" src="" alt="imagen" />
+            <img class="icono" src="../public/res/school.svg" alt="imagen" />
             <div class="id">Nuevo Programa</div>
             <div class="name">
                 <a href="programas-form.php">Crear programa</a>
             </div>
         </div>
         <?php
-        foreach ($programas as $programa) {
+                foreach ($programas as $programa) {
             echo '<div class="">';
-            echo '  <img class="icono" src="" alt="imagen" />';
-            echo '  <div class="codigo">Código: ' . $programa->get('codigo') . '</div>';
-            echo '  <div class="nombre">Nombre: ' . $programa->get('nombre') . '</div>';
+            echo '  <img class="icono" src="../public/res/history_edu.svg" alt="imagen" />';  
+            echo '  <div class="codigo"><strong>Código:</strong> ' . $programa->get('codigo') . '</div>';
+            echo '  <div class="nombre"><strong>Nombre:</strong> ' . $programa->get('nombre') . '</div>';
             echo '  <div class="btns">';
             echo '      <a href="programas-form.php?cod=' . urlencode($programa->get('codigo')) . '">';
-            echo '          <img class="icono" src="" alt="imagen"/>';
+            echo '          <img class="icono" src="../public/res/edit.svg" alt="imagen"/>';
             echo '      </a>';
             echo '      <button onclick="borrarPrograma(\'' . addslashes($programa->get('codigo')) . '\')">';
-            echo '          <img class="icono" src="" alt="imagen"/>';
+            echo '          <img class="icono" src="../public/res/delete.svg" alt="imagen"/>';
             echo '      </button>';
             echo '  </div>';
             echo '</div>';
