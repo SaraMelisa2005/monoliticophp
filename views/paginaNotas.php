@@ -14,13 +14,14 @@ $notas = $notasController->getNotas();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notas</title>
     <link rel="stylesheet" href="../public/css/modals.css">
+    <link rel="stylesheet" href="../public/css/notas.css">
 </head>
 <body>
-    <h2>Lista de notas</h2>
+    <h2>Módulo de notas</h2>
     <br>
     <section class="">
         <div class="">
-            <img class="icono" src="" alt="imagen" />
+            <img class="icono" src="../public/res/playlist.svg" alt="imagen" />
             <div class="id">Nueva nota</div>
             <div class="name">
                 <a href="notas-form.php">Crear nota</a>
@@ -29,19 +30,17 @@ $notas = $notasController->getNotas();
         <?php
         foreach ($notas as $nota) {
             echo '<div class="">';
-            echo '  <img class="icono" src="" alt="imagen" />';
-            echo '  <div class="materia">Materia: ' . $nota->get('materia') . '</div>';
-            echo '  <div class="estudiante">Estudiante: ' . $nota->get('estudiante') . '</div>';
-            echo '  <div class="actividad">Actividad: ' . $nota->get('actividad') . '</div>';
-            echo '  <div class="nota">Nota: ' . $nota->get('nota') . '</div>';
+            echo '  <img class="icono" src="../public/res/check.svg" alt="Nota" />';
+            echo '  <div class="materia"><strong>Materia:</strong> ' . $nota->get('materia') . '</div>';
+            echo '  <div class="estudiante"><strong>Estudiante:</strong> ' . $nota->get('estudiante') . '</div>';
+            echo '  <div class="actividad"><strong>Actividad:</strong> ' . $nota->get('actividad') . '</div>';
+            echo '  <div class="nota"><strong>Nota:</strong> ' . $nota->get('nota') . '</div>';
             echo '  <div class="btns">';
-            // CORREGIDO: Enlace de edición con materia y estudiante
             echo '      <a href="notas-form.php?materia=' . urlencode($nota->get('materia')) . '&estudiante=' . urlencode($nota->get('estudiante')) . '">';
-            echo '          <img class="icono" src="" alt="imagen"/>';
+            echo '          <img class="icono" src="../public/res/edit.svg" alt="Editar"/>';
             echo '      </a>';
-            // Botón de borrar
             echo '      <button onclick="borrarNota(\'' . addslashes($nota->get('materia')) . '\', \'' . addslashes($nota->get('estudiante')) . '\')">';
-            echo '          <img class="icono" src="" alt="imagen"/>';
+            echo '          <img class="icono" src="../public/res/delete.svg" alt="Eliminar"/>';
             echo '      </button>';
             echo '  </div>';
             echo '</div>';
